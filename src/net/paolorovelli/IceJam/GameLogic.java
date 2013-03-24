@@ -200,13 +200,15 @@ public class GameLogic {
     public boolean setup( String puzzleStr ) {
         List<Car> cars = new ArrayList<Car>();
         String carsStr[] = puzzleStr.split( "," );
-        for ( String carStr : carsStr ) {
+
+        for( String carStr : carsStr ) {
             Car car = carFromString( carStr );
             if ( car != null ) {
                 cars.add( car );
             }
             else { return false; }
         }
+
         return setup( cars );
     }
 
