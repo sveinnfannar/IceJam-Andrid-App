@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<challenges>
+    <challenge>
+        <name>Beginners</name>
+        <puzzles>beginners.xml</puzzles>
+    </challenge>
+    <challenge>
+        <name>Intermediate</name>
+        <puzzles>intermediate.xml</puzzles>
+    </challenge>
+    <challenge>
+        <name>Advanced</name>
+        <puzzles>beginners.xml</puzzles>
+    </challenge>
+    <challenge>
+        <name>Ultimate</name>
+        <puzzles>beginners.xml</puzzles>
+    </challenge>
+</challenges>
