@@ -21,11 +21,14 @@ import java.util.List;
  */
 public class PlayActivity extends Activity {
     private Parser parser = new Parser();
+    private String levelID;
+    private String levelSetup;
     DrawView mDrawView;
     TextView mMovesView;
 
-    private int mColorFirst;
-    private int mColorSecond;
+    int mColorFirst;
+    int mColorSecond;
+
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -58,9 +61,8 @@ public class PlayActivity extends Activity {
         //mColorFirst = intent.getIntExtra("ColorFirst", Color.RED);
         //mColorSecond = intent.getIntExtra("ColorSecond", Color.GREEN);
 
-        //Read parameters from the last Activity through Preferences file:
-        SharedPreferences preferences = getSharedPreferences("GamePrefs", MODE_PRIVATE);
-        mColorFirst = preferences.getInt("Level", 0);
+        mColorFirst = Color.RED;
+        mColorSecond = Color.GREEN;
 
         mDrawView.post(new Runnable() {
             @Override

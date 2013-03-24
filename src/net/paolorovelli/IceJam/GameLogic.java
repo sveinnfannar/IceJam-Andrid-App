@@ -19,8 +19,8 @@ public class GameLogic {
 
     public static class Car {
         private Orientation m_orientation;
-        private int m_col;
-        private int m_row;
+        protected int m_col;
+        protected int m_row;
         private int m_length;
 
         public Car( Orientation orientation, int col, int row, int length ) {

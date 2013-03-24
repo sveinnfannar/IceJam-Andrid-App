@@ -21,3 +21,4 @@ local.properties
 
 # Mac stufz
 .DS_Store
+.idea
