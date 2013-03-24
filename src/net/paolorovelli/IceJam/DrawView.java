@@ -85,6 +85,9 @@ public class DrawView extends View {
 
             case MotionEvent.ACTION_UP:
                 if( mMovingShape != null ) {
+                    mMovingShape.snapToGrid();
+                    invalidate();
+
                     mMovingShape = null;
 
                     if( mListener != null ) {

@@ -36,10 +36,21 @@ public class Shape {
     }
 
     public void moveTo(int pos) {
-        if (getOrientation() == Orientation.Horizontal)
+        if (mOrientation == Orientation.Horizontal)
             mRect.offsetTo(pos, mRect.top);
         else
             mRect.offsetTo(mRect.left, pos);
+    }
+
+    public void snapToGrid() {
+        int newValue;
+
+        if (mOrientation == Orientation.Horizontal)
+            newValue = ((mRect.left + PIXELS_PER_UNIT / 2) / PIXELS_PER_UNIT) * PIXELS_PER_UNIT;
+        else
+            newValue = ((mRect.top + PIXELS_PER_UNIT / 2) / PIXELS_PER_UNIT) * PIXELS_PER_UNIT;
+
+        moveTo(newValue);
     }
 
     public Rect getRect() {
