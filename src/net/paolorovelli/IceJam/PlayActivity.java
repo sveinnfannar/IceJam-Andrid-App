@@ -20,33 +20,36 @@ import java.util.List;
  * @time 9:55AM
  */
 public class PlayActivity extends Activity {
-    private String levelID;
-    private String levelSetup;
+    private Parser parser = new Parser();
     DrawView mDrawView;
     TextView mMovesView;
 
-    int mColorFirst;
-    int mColorSecond;
-
+    private int mColorFirst;
+    private int mColorSecond;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.game );
 
-        GameLogic game = new GameLogic();
+        mDrawView = (DrawView) findViewById( R.id.drawView );
+        mMovesView = (TextView) findViewById( R.id.moves );
 
         //Read parameters from the last Activity through Intent:
         //Intent intent = getIntent();
         //mColorFirst = intent.getIntExtra("ColorFirst", Color.RED);
         //mColorSecond = intent.getIntExtra("ColorSecond", Color.GREEN);
 
+        //Read parameters from the last Activity through Preferences file:
+        SharedPreferences preferences = getSharedPreferences("GamePrefs", MODE_PRIVATE);
         mColorFirst = Color.RED;
-        mColorSecond = Color.GREEN;
+        mColorSecond = Color.BLUE;
 
         mDrawView.post(new Runnable() {
             @Override
             public void run() {
-
+                // TODO: Use CarFromString method from GameLogic
+                mDrawView.addShape(new Shape(Shape.Orientation.Vertical, 2, 3, 3));
+                mDrawView.addShape(new Shape(Shape.Orientation.Horizontal, 5, 5, 2));
             }
         });
 

@@ -23,17 +23,27 @@ import java.util.Random;
  */
 public class DrawView extends View {
 
+    public static final int NUM_COLS = 6;
+    public static final int NUM_ROWS = 6;
+
     private Paint mPaint = new Paint();
     private Shape mMovingShape = null;
     private DrawEventHandler mListener = null;
 
     private List<Shape> mShapes = new ArrayList<Shape>();
+    private boolean[][] mGrid = new boolean[NUM_COLS][NUM_ROWS];
 
+    private int mOffsetX;
+    private int mOffsetY;
 
 
     public DrawView(Context context, AttributeSet attrs) {
         super(context, attrs);
         setBackgroundColor(Color.WHITE);
+
+        for (int i = 0; i < NUM_COLS; i++)
+            for (int j = 0; j < NUM_COLS; j++)
+                mGrid[i][j] = false;
     }
 
 
@@ -43,6 +53,17 @@ public class DrawView extends View {
 
     public void addShape(Shape shape) {
         mShapes.add(shape);
+
+        if (shape.getOrientation() == Shape.Orientation.Horizontal) {
+            for (int end=shape.getCol()+shape.getLength(), col=shape.getCol(); col<end; ++col) {
+                mGrid[col][shape.getRow()] = true;
+            }
+        }
+        else {
+            for (int end=shape.getRow()+shape.getLength(), row=shape.getRow(); row<end; ++row) {
+                mGrid[shape.getCol()][row] = true;
+            }
+        }
     }
 
     protected void onDraw(Canvas canvas) {
@@ -52,8 +73,6 @@ public class DrawView extends View {
         }
     }
 
-    int mOffsetX;
-    int mOffsetY;
     public boolean onTouchEvent( MotionEvent motionEvent ) {
         int x = (int) motionEvent.getX();
         int y = (int) motionEvent.getY();
@@ -71,11 +90,25 @@ public class DrawView extends View {
             case MotionEvent.ACTION_MOVE:
                 if( mMovingShape != null ) {
                     if (mMovingShape.getOrientation() == Shape.Orientation.Horizontal) {
-                        x = Math.max( 0, Math.min( x, getWidth() - mMovingShape.width()));  //TODO: instead of SHAPE_SIZE here I should have the max lenght I can reach (see getAction()...)
+                        /*
+                        int row = mMovingShape.getRow();
+
+                        int min = 0;
+                        for (int i = 0; i < mMovingShape.getCol(); i++)
+                            if (mGrid[row][i])
+                                min = i + 1;
+
+                        int max = NUM_COLS;
+                        for (int i = NUM_COLS; i > mMovingShape.getCol() + mMovingShape.getLength(); i--)
+                            if (mGrid[row][i])
+                                max = i;
+
+                        x = max()
+                        */
                         mMovingShape.moveTo(x - mOffsetX);
                     }
                     else {
-                        y = Math.max( 0, Math.min( y, getHeight() - mMovingShape.height()));  //TODO: instead of SHAPE_SIZE here I should have the max lenght I can reach (see getAction()...)
+                        y = Math.max( 0, Math.min( y, getHeight() - mMovingShape.height()));
                         mMovingShape.moveTo(y - mOffsetY);
                     }
 

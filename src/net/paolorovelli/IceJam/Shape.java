@@ -1,6 +1,7 @@
 package net.paolorovelli.IceJam;
 
 import android.graphics.Color;
+import android.graphics.PixelXorXfermode;
 import android.graphics.Rect;
 
 /**
@@ -53,6 +54,33 @@ public class Shape {
         moveTo(newValue);
     }
 
+    private static boolean intersect( int x1, int dx1, int x2, int dx2 ) {
+        return ( (x1 <= x2) && (x2 < x1 + dx1) ) || ( (x2 <= x1) && (x1 < x2 + dx2) );
+    }
+
+    private boolean doOverlap(Shape otherShape) {
+        if (mOrientation  == Orientation.Horizontal) {
+            if (otherShape.getOrientation() == Orientation.Horizontal) {
+                return (getRow() == otherShape.getRow()) &&
+                        intersect(getCol(), getLength(), otherShape.getCol(), otherShape.getLength() );
+            }
+            else {
+                return intersect(getCol(), getLength(), otherShape.getCol(), 1 ) &&
+                        intersect(getRow(), 1, otherShape.getRow(), otherShape.getLength());
+            }
+        }
+        else {
+            if (otherShape.getOrientation() == Orientation.Vertical) {
+                return (getCol() == otherShape.getCol()) &&
+                        intersect(getRow(), getLength(), otherShape.getRow(), otherShape.getLength());
+            }
+            else {
+                return intersect(getRow(), getLength(), otherShape.getRow(), 1) &&
+                        intersect(getCol(), 1, otherShape.getCol(), otherShape.getLength());
+            }
+        }
+    }
+
     public Rect getRect() {
         return mRect;
     }
@@ -70,11 +98,11 @@ public class Shape {
     }
 
     public int getCol() {
-        return height() / PIXELS_PER_UNIT;
+        return (width() + (PIXELS_PER_UNIT / 2)) / PIXELS_PER_UNIT;
     }
 
     public int getRow() {
-        return height() / PIXELS_PER_UNIT;
+        return (height() + (PIXELS_PER_UNIT / 2)) / PIXELS_PER_UNIT;
     }
 
     public int width() {
