@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.os.Bundle;
 
 /**
- * Created with IntelliJ IDEA.
- * User: paolo
- * Date: 03/23/2013
- * Time: 11:03AM
- * To change this template use File | Settings | File Templates.
+ * Settings activity of the game.
+ *
+ * @author Paolo Rovelli and Sveinn Fannar Kristjánsson.
+ * @date 03/24/2013
+ * @time 9:55AM
  */
 public class SettingsActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {

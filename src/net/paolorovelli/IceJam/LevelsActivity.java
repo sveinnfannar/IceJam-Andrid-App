@@ -12,88 +12,59 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: paolo
- * Date: 03/23/2013
- * Time: 1:37PM
- * To change this template use File | Settings | File Templates.
+ * Levels activity of the game.
+ *
+ * @author Paolo Rovelli and Sveinn Fannar Kristjánsson.
+ * @date 03/24/2013
+ * @time 9:55AM
  */
 public class LevelsActivity extends ListActivity {         //TODO: change in ListView????
-    class ColorPair {
-        private int mColorFirst;
-        private int mColorSecond;
-
-        ColorPair(int colorFirst, int colorSecond) {
-            mColorFirst = colorFirst;
-            mColorSecond = colorSecond;
-        }
-
-        public int getColorFirst() {
-            return mColorFirst;
-        }
-
-        public int getColorSecond() {
-            return mColorSecond;
-        }
-
-        public String toString() {
-            return "" + colorName(mColorFirst) + " - " + colorName(mColorSecond);
-        }
-
-        private String colorName( int color ) {
-            switch( color ) {
-                case Color.GREEN:
-                    return "GREEN";
-                case Color.RED:
-                    return "RED";
-                case Color.BLUE:
-                    return "BLUE";
-                case Color.GRAY:
-                    return "GRAY";
-                case Color.YELLOW:
-                    return "YELLOW";
-                case Color.CYAN:
-                    return "CYAN";
-            }
-
-            return "UNKNOWN";
-        }
-    }
-
-    private List<ColorPair> mColorPair = new ArrayList<ColorPair>();
+    private Parser parser = new Parser();
+    private String challenge = new String();
+    private List<String> levels = new ArrayList<String>();
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mColorPair.add( new ColorPair(Color.RED,  Color.BLUE) );
-        mColorPair.add( new ColorPair(Color.GREEN,  Color.YELLOW) );
-        mColorPair.add( new ColorPair(Color.CYAN,  Color.GRAY) );
+        SharedPreferences preferences = getSharedPreferences("GamePrefs", MODE_PRIVATE);
+        this.challenge = preferences.getString("Challenge", "");
 
-        ArrayAdapter<ColorPair> adapter = new ArrayAdapter<ColorPair>(this, R.layout.simple_list_item_1, mColorPair);
+        try {
+            //Open the assets file:
+            InputStream file = getAssets().open( "challenge.xml" );  //TODO: the file should be the one passed by ChallengesActivity....xml" );
+
+            //Parse the challenges:
+            this.levels =  this.parser.parseLevels( file );
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.simple_list_item_1, levels);
 
         setListAdapter( adapter );
     }
 
     @Override
     protected void onListItemClick(ListView lv, View v, int position, long id) {
-        System.out.println("F: " + position );
-
         Intent intent = new Intent(this, PlayActivity.class);
 
         //Pass parameters to the next Activity through Intent:
-        //intent.putExtra("ColorFirst", mColorPair.get(position).getColorFirst());
-        //intent.putExtra("ColorSecond", mColorPair.get(position).getColorSecond());
+        //intent.putExtra("level", levels.get(position));
 
         //Pass parameters to the next Activity through Preferences file:
         SharedPreferences preferences = getSharedPreferences("GamePrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt("ColorFirst", mColorPair.get(position).getColorFirst());
-        editor.putInt("ColorSecond", mColorPair.get(position).getColorSecond());
+        editor.putString("Level", levels.get(position));
         editor.commit();
+
+        //TODO: the activity should send to the PlayActivity the setup of the challenge...
 
         startActivity(intent);  // start the game...
     }

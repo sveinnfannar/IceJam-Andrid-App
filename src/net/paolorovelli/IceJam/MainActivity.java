@@ -5,6 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+/**
+ * Main activity of the game.
+ *
+ * @author Paolo Rovelli and Sveinn Fannar Kristjánsson.
+ * @date 03/24/2013
+ * @time 9:55AM
+ */
 public class MainActivity extends Activity {
     /**
      * Called when the activity is first created.

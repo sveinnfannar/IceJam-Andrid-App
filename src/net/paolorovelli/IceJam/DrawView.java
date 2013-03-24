@@ -14,11 +14,11 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Created with IntelliJ IDEA.
- * User: paolo
- * Date: 03/23/2013
- * Time: 10:03AM
- * To change this template use File | Settings | File Templates.
+ * DrawViews.
+ *
+ * @author Paolo Rovelli and Sveinn Fannar Kristjánsson.
+ * @date 03/24/2013
+ * @time 9:55AM
  */
 public class DrawView extends View {
     private class MyShape {
