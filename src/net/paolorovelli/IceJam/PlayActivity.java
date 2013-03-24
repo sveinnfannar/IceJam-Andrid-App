@@ -60,13 +60,15 @@ public class PlayActivity extends Activity {
 
         //Read parameters from the last Activity through Preferences file:
         SharedPreferences preferences = getSharedPreferences("GamePrefs", MODE_PRIVATE);
-        mColorFirst = preferences.getInt("Level", 0);
+        mColorFirst = Color.RED;
+        mColorSecond = Color.BLUE;
 
         mDrawView.post(new Runnable() {
             @Override
             public void run() {
-                mDrawView.addShape(mColorFirst);
-                mDrawView.addShape(mColorSecond);
+                // TODO: Use CarFromString method from GameLogic
+                mDrawView.addShape(new Shape(Shape.Orientation.Vertical, 2, 3, 3));
+                mDrawView.addShape(new Shape(Shape.Orientation.Horizontal, 5, 5, 2));
             }
         });
 
