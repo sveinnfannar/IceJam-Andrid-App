@@ -6,7 +6,7 @@
     </challenge>
     <challenge>
         <name>Intermediate</name>
-        <puzzles>intermediate.xml</puzzles>
+        <puzzles>beginners.xml</puzzles>
     </challenge>
     <challenge>
         <name>Advanced</name>

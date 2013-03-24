@@ -24,9 +24,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fa71c342-ca92-4ac0-9a80-6a221f7b9221" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/paolorovelli/IceJam/Parser.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/challengelist.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/net/paolorovelli/IceJam/TrafficJam.java" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/assets/challenge.xml" afterPath="$PROJECT_DIR$/assets/beginners.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/paolorovelli/IceJam/ChallengesActivity.java" afterPath="$PROJECT_DIR$/src/net/paolorovelli/IceJam/ChallengesActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/paolorovelli/IceJam/GameLogic.java" afterPath="$PROJECT_DIR$/src/net/paolorovelli/IceJam/GameLogic.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/paolorovelli/IceJam/LevelsActivity.java" afterPath="$PROJECT_DIR$/src/net/paolorovelli/IceJam/LevelsActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/paolorovelli/IceJam/Parser.java" afterPath="$PROJECT_DIR$/src/net/paolorovelli/IceJam/Parser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/paolorovelli/IceJam/PlayActivity.java" afterPath="$PROJECT_DIR$/src/net/paolorovelli/IceJam/PlayActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/challengelist.xml" afterPath="$PROJECT_DIR$/assets/challengelist.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="IceJam.iws" />
@@ -42,18 +46,19 @@
     <file path="/main.xml" changelist="fa71c342-ca92-4ac0-9a80-6a221f7b9221" time="1364052578566" ignored="false" />
     <file path="/MainActivity.java" changelist="fa71c342-ca92-4ac0-9a80-6a221f7b9221" time="1364119252211" ignored="false" />
     <file path="/DrawView.java" changelist="fa71c342-ca92-4ac0-9a80-6a221f7b9221" time="1364119294889" ignored="false" />
-    <file path="/Dummy.txt" changelist="fa71c342-ca92-4ac0-9a80-6a221f7b9221" time="1364124690511" ignored="false" />
+    <file path="/Dummy.txt" changelist="fa71c342-ca92-4ac0-9a80-6a221f7b9221" time="1364125537773" ignored="false" />
     <file path="/game.xml" changelist="fa71c342-ca92-4ac0-9a80-6a221f7b9221" time="1364044612771" ignored="false" />
-    <file path="/PlayActivity.java" changelist="fa71c342-ca92-4ac0-9a80-6a221f7b9221" time="1364124600933" ignored="false" />
+    <file path="/PlayActivity.java" changelist="fa71c342-ca92-4ac0-9a80-6a221f7b9221" time="1364127367327" ignored="false" />
     <file path="/settings.xml" changelist="fa71c342-ca92-4ac0-9a80-6a221f7b9221" time="1364036726722" ignored="false" />
     <file path="/SettingsActivity.java" changelist="fa71c342-ca92-4ac0-9a80-6a221f7b9221" time="1364119318650" ignored="false" />
     <file path="/DrawEventHandler.java" changelist="fa71c342-ca92-4ac0-9a80-6a221f7b9221" time="1364046804091" ignored="false" />
     <file path="/Challenges.java" changelist="fa71c342-ca92-4ac0-9a80-6a221f7b9221" time="1364052463788" ignored="false" />
-    <file path="/ChallengesActivity.java" changelist="fa71c342-ca92-4ac0-9a80-6a221f7b9221" time="1364124504315" ignored="false" />
+    <file path="/ChallengesActivity.java" changelist="fa71c342-ca92-4ac0-9a80-6a221f7b9221" time="1364126678008" ignored="false" />
     <file path="/LevelActivity.java" changelist="fa71c342-ca92-4ac0-9a80-6a221f7b9221" time="1364051883516" ignored="false" />
     <file path="/challenge.xml" changelist="fa71c342-ca92-4ac0-9a80-6a221f7b9221" time="1364056802733" ignored="false" />
-    <file path="/Parser.java" changelist="fa71c342-ca92-4ac0-9a80-6a221f7b9221" time="1364124325141" ignored="false" />
-    <file path="/LevelsActivity.java" changelist="fa71c342-ca92-4ac0-9a80-6a221f7b9221" time="1364124533307" ignored="false" />
+    <file path="/Parser.java" changelist="fa71c342-ca92-4ac0-9a80-6a221f7b9221" time="1364126971320" ignored="false" />
+    <file path="/LevelsActivity.java" changelist="fa71c342-ca92-4ac0-9a80-6a221f7b9221" time="1364127266056" ignored="false" />
+    <file path="/challengelist.xml" changelist="fa71c342-ca92-4ac0-9a80-6a221f7b9221" time="1364127080690" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,30 +117,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Parser.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Parser.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/net/paolorovelli/IceJam/Parser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="128" column="5" selection-start="3818" selection-end="3818" vertical-scroll-proportion="0.8030019">
+            <state line="33" column="16" selection-start="627" selection-end="627" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#970#978#0" expanded="true" />
-                <element signature="e#2582#2590#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PlayActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/net/paolorovelli/IceJam/PlayActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="34" column="33" selection-start="873" selection-end="873" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#861#869#0" expanded="true" />
-                <element signature="e#1926#2119#0" expanded="true" />
-                <element signature="e#2108#2109#0" expanded="true" />
-                <element signature="e#2163#2468#0" expanded="true" />
-                <element signature="e#2457#2458#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -144,10 +131,23 @@
       <file leaf-file-name="LevelsActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/net/paolorovelli/IceJam/LevelsActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="42" column="61" selection-start="1351" selection-end="1382" vertical-scroll-proportion="0.0">
+            <state line="38" column="76" selection-start="1291" selection-end="1291" vertical-scroll-proportion="0.0">
               <folding>
-                <element signature="e#825#833#0" expanded="true" />
-                <element signature="e#1523#1531#0" expanded="true" />
+                <element signature="e#880#888#0" expanded="true" />
+                <element signature="e#945#953#0" expanded="true" />
+                <element signature="e#1846#1854#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PlayActivity.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/net/paolorovelli/IceJam/PlayActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="57" column="36" selection-start="1480" selection-end="1480" vertical-scroll-proportion="0.4707113">
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#905#913#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -156,11 +156,12 @@
       <file leaf-file-name="ChallengesActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/net/paolorovelli/IceJam/ChallengesActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="50" column="33" selection-start="1293" selection-end="1293" vertical-scroll-proportion="0.0">
+            <state line="36" column="33" selection-start="921" selection-end="921" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#753#761#0" expanded="true" />
-                <element signature="e#1315#1323#0" expanded="true" />
+                <element signature="e#758#766#0" expanded="true" />
+                <element signature="e#826#834#0" expanded="true" />
+                <element signature="e#1401#1409#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -169,7 +170,7 @@
       <file leaf-file-name="DrawView.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/net/paolorovelli/IceJam/DrawView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="12" selection-start="377" selection-end="377" vertical-scroll-proportion="0.0">
+            <state line="96" column="26" selection-start="2816" selection-end="2816" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1069#1078#0" expanded="true" />
@@ -178,19 +179,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameLogic.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/net/paolorovelli/IceJam/GameLogic.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="211" column="21" selection-start="6209" selection-end="6209" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="game.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/res/layout/game.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="42" selection-start="380" selection-end="380" vertical-scroll-proportion="0.03846154">
+            <state line="8" column="42" selection-start="380" selection-end="380" vertical-scroll-proportion="-2.0192308">
               <folding />
             </state>
           </provider>
@@ -229,7 +221,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/res/layout/settings.xml" />
         <option value="$PROJECT_DIR$/res/layout/game.xml" />
         <option value="$PROJECT_DIR$/src/net/paolorovelli/IceJam/DrawEventHandler.java" />
         <option value="$PROJECT_DIR$/src/net/paolorovelli/IceJam/Challenges.java" />
@@ -237,14 +228,15 @@
         <option value="$PROJECT_DIR$/src/net/paolorovelli/IceJam/LevelActivity.java" />
         <option value="$PROJECT_DIR$/res/layout/main.xml" />
         <option value="$PROJECT_DIR$/challenge.xml" />
-        <option value="$PROJECT_DIR$/src/net/paolorovelli/IceJam/GameLogic.java" />
         <option value="$PROJECT_DIR$/src/net/paolorovelli/IceJam/MainActivity.java" />
         <option value="$PROJECT_DIR$/src/net/paolorovelli/IceJam/DrawView.java" />
         <option value="$PROJECT_DIR$/src/net/paolorovelli/IceJam/SettingsActivity.java" />
+        <option value="$PROJECT_DIR$/src/net/paolorovelli/IceJam/GameLogic.java" />
+        <option value="$PROJECT_DIR$/src/net/paolorovelli/IceJam/Parser.java" />
         <option value="$PROJECT_DIR$/src/net/paolorovelli/IceJam/ChallengesActivity.java" />
+        <option value="$PROJECT_DIR$/assets/challengelist.xml" />
         <option value="$PROJECT_DIR$/src/net/paolorovelli/IceJam/LevelsActivity.java" />
         <option value="$PROJECT_DIR$/src/net/paolorovelli/IceJam/PlayActivity.java" />
-        <option value="$PROJECT_DIR$/src/net/paolorovelli/IceJam/Parser.java" />
       </list>
     </option>
   </component>
@@ -403,6 +395,9 @@
     <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/assets" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/assets" />
     </key>
@@ -582,7 +577,11 @@
       <created>1364124704952</created>
       <updated>1364124704952</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Some stuff">
+      <created>1364125540883</created>
+      <updated>1364125540883</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -613,22 +612,22 @@
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998565" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32891247" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998565" sideWeight="0.6710875" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998565" sideWeight="0.74403185" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25596818" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25596818" sideWeight="0.31420374" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32891247" sideWeight="0.32496414" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32891247" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33023873" sideWeight="0.49426112" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25596818" sideWeight="0.68077475" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32891247" sideWeight="0.6700143" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32891247" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16355811" sideWeight="0.74403185" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25596818" sideWeight="0.72740316" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16355811" sideWeight="0.6710875" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25596818" sideWeight="0.72740316" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -717,16 +716,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/game.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="42" selection-start="380" selection-end="380" vertical-scroll-proportion="0.03846154">
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/main.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="12" column="34" selection-start="519" selection-end="519" vertical-scroll-proportion="-3.4615386">
@@ -746,23 +735,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/paolorovelli/IceJam/GameLogic.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="211" column="21" selection-start="6209" selection-end="6209" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/paolorovelli/IceJam/DrawView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="12" selection-start="377" selection-end="377" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1069#1078#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/net/paolorovelli/IceJam/SettingsActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="11" selection-start="105" selection-end="105" vertical-scroll-proportion="0.13464992">
@@ -770,62 +742,85 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/paolorovelli/IceJam/DrawView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="96" column="26" selection-start="2816" selection-end="2816" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1069#1078#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/game.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="42" selection-start="380" selection-end="380" vertical-scroll-proportion="-2.0192308">
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/paolorovelli/IceJam/GameLogic.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="113" column="22" selection-start="3017" selection-end="3017" vertical-scroll-proportion="0.11320755">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/beginners.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/assets/challengelist.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="29" selection-start="224" selection-end="236" vertical-scroll-proportion="0.23529412">
+        <state line="8" column="26" selection-start="233" selection-end="233" vertical-scroll-proportion="0.2251407">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/paolorovelli/IceJam/Parser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="16" selection-start="627" selection-end="627" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/net/paolorovelli/IceJam/ChallengesActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="33" selection-start="1293" selection-end="1293" vertical-scroll-proportion="0.0">
+        <state line="36" column="33" selection-start="921" selection-end="921" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#753#761#0" expanded="true" />
-            <element signature="e#1315#1323#0" expanded="true" />
+            <element signature="e#758#766#0" expanded="true" />
+            <element signature="e#826#834#0" expanded="true" />
+            <element signature="e#1401#1409#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/challenge.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="101" selection-start="358" selection-end="444" vertical-scroll-proportion="0.36585367">
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/net/paolorovelli/IceJam/LevelsActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="61" selection-start="1351" selection-end="1382" vertical-scroll-proportion="0.0">
+        <state line="38" column="76" selection-start="1291" selection-end="1291" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="e#825#833#0" expanded="true" />
-            <element signature="e#1523#1531#0" expanded="true" />
+            <element signature="e#880#888#0" expanded="true" />
+            <element signature="e#945#953#0" expanded="true" />
+            <element signature="e#1846#1854#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/net/paolorovelli/IceJam/PlayActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="33" selection-start="873" selection-end="873" vertical-scroll-proportion="0.0">
+        <state line="57" column="36" selection-start="1480" selection-end="1480" vertical-scroll-proportion="0.4707113">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#861#869#0" expanded="true" />
-            <element signature="e#1926#2119#0" expanded="true" />
-            <element signature="e#2108#2109#0" expanded="true" />
-            <element signature="e#2163#2468#0" expanded="true" />
-            <element signature="e#2457#2458#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/paolorovelli/IceJam/Parser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="128" column="5" selection-start="3818" selection-end="3818" vertical-scroll-proportion="0.8030019">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#970#978#0" expanded="true" />
-            <element signature="e#2582#2590#0" expanded="true" />
+            <element signature="e#905#913#0" expanded="true" />
           </folding>
         </state>
       </provider>

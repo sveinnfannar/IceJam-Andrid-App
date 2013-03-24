@@ -26,7 +26,8 @@ import java.util.List;
  */
 public class ChallengesActivity extends ListActivity {
     private Parser parser = new Parser();
-    private List<String> challenges = new ArrayList<String>();
+    private List<String> challengesNames = new ArrayList<String>();
+    private List<String> challengesFiles = new ArrayList<String>();
 
 
     /**
@@ -40,7 +41,7 @@ public class ChallengesActivity extends ListActivity {
             InputStream file = getAssets().open( "challengelist.xml" );
 
             //Parse the challenges:
-            this.challenges =  this.parser.parseChallenges( file );
+            this.parser.parseChallenges(file, challengesNames, challengesFiles);
         }
         catch(IOException e) {
             e.printStackTrace();
@@ -48,7 +49,7 @@ public class ChallengesActivity extends ListActivity {
 
         super.onCreate(savedInstanceState);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.simple_list_item_1,  this.challenges);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.simple_list_item_1,  this.challengesNames);
 
         setListAdapter(adapter);
     }
@@ -57,11 +58,11 @@ public class ChallengesActivity extends ListActivity {
     protected void onListItemClick(ListView lv, View v, int position, long id) {
         Intent intent = new Intent(this, LevelsActivity.class);
 
-        //TODO: the activity should send to the LevelsActivity the file of the challenge...
         //Pass the name of the chosen challenge to the LevelsActivity through Preferences file:
         SharedPreferences preferences = getSharedPreferences("GamePrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("Challenge",  this.challenges.get(position));
+        editor.putString("ChallengeName",  this.challengesNames.get(position));
+        editor.putString("ChallengeFile",  this.challengesFiles.get(position));
         editor.commit();
 
         startActivity(intent);  // start the game...
