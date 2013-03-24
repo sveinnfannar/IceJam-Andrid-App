@@ -21,17 +21,10 @@ import java.util.List;
  * @time 9:55AM
  */
 public class Parser {
-    String challenge;
-    String level;
-    String setup;
-
     /**
      * Class constructor.
      */
     public Parser() {
-        this.challenge = new String();
-        this.level = new String();
-        this.setup = new String();
     }
 
 
@@ -39,12 +32,9 @@ public class Parser {
      * Parse the challenges.
      *
      * @param is
-     * @return
      * @throws IOException
      */
-    public List<String> parseChallenges(InputStream is) throws IOException {
-        List<String> challenges = new ArrayList<String>();
-
+    public void parseChallenges(InputStream is, List<String> names, List<String> files) throws IOException {
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -61,24 +51,18 @@ public class Parser {
                     Element eElement = (Element) nNode;
 
                     //Read the elements:
-                    String challengeName = eElement.getElementsByTagName("name").item(0).getTextContent();  // eElement.getAttribute("name")
-                    String challengeFile = eElement.getElementsByTagName("puzzles").item(0).getTextContent();  // eElement.getAttribute("file")
+                    names.add( eElement.getElementsByTagName("name").item(0).getTextContent() );  // eElement.getAttribute("name")
+                    files.add( eElement.getElementsByTagName("puzzles").item(0).getTextContent() );  // eElement.getAttribute("file")
 
                     //Debug:
-                    System.out.println("[PARSER] Challenge name: " + challengeName);
-                    System.out.println("[PARSER] Challenge file: " + challengeFile);
-
-                    challenges.add( challengeName );
+                    //System.out.println("[PARSER] Challenge name: " + eElement.getElementsByTagName("name").item(0).getTextContent());
+                    //System.out.println("[PARSER] Challenge file: " + eElement.getElementsByTagName("puzzles").item(0).getTextContent());
                 }
             }
-
-            return challenges;
         }
         catch(Exception e) {
             e.printStackTrace();
         }
-
-        return null;
     }
 
 
@@ -86,12 +70,9 @@ public class Parser {
      * Parse the levels (puzzles).
      *
      * @param is
-     * @return
      * @throws IOException
      */
-    public List<String> parseLevels(InputStream is) throws IOException {
-        List<String> levels = new ArrayList<String>();
-
+    public void parseLevels(InputStream is, List<String> names, List<String> setups) throws IOException {
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -108,23 +89,17 @@ public class Parser {
                     Element eElement = (Element) nNode;
 
                     //Read the elements:
-                    String puzzleID = eElement.getAttribute("id");
-                    String puzzleSetup = eElement.getElementsByTagName("setup").item(0).getTextContent();
+                    names.add( eElement.getAttribute("id") );
+                    setups.add( eElement.getElementsByTagName("setup").item(0).getTextContent() );
 
                     //Debug:
-                    System.out.println("[PARSER] Puzzle id: " + puzzleID);
-                    //System.out.println("[PARSER] Puzzle setup: " + puzzleSetup);
-
-                    levels.add( puzzleID );
+                    //System.out.println("[PARSER] Puzzle level: " + eElement.getAttribute("id"));
+                    //System.out.println("[PARSER] Puzzle setup: " + eElement.getElementsByTagName("setup").item(0).getTextContent());
                 }
             }
-
-            return levels;
         }
         catch(Exception e) {
             e.printStackTrace();
         }
-
-        return null;
     }
 }

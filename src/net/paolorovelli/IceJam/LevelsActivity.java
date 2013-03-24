@@ -26,27 +26,34 @@ import java.util.List;
  */
 public class LevelsActivity extends ListActivity {         //TODO: change in ListView????
     private Parser parser = new Parser();
-    private String challenge = new String();
-    private List<String> levels = new ArrayList<String>();
+    private String challengeName = new String();
+    private String challengeFile = new String();
+    private List<String> levelsID = new ArrayList<String>();
+    private List<String> levelsSetups = new ArrayList<String>();
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         SharedPreferences preferences = getSharedPreferences("GamePrefs", MODE_PRIVATE);
-        this.challenge = preferences.getString("Challenge", "");
+        this.challengeName = preferences.getString("ChallengeName", "");
+        this.challengeFile = preferences.getString("ChallengeFile", "");
+
+        //Debug:
+        //System.out.println("[LEVELS] Challenge name: " + this.challengeName);
+        //System.out.println("[LEVELS] Challenge file: " + this.challengeFile);
 
         try {
             //Open the assets file:
-            InputStream file = getAssets().open( "challenge.xml" );  //TODO: the file should be the one passed by ChallengesActivity....xml" );
+            InputStream file = getAssets().open( this.challengeFile );
 
             //Parse the challenges:
-            this.levels =  this.parser.parseLevels( file );
+            this.parser.parseLevels(file, this.levelsID, this.levelsSetups);
         }
         catch(IOException e) {
             e.printStackTrace();
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.simple_list_item_1, levels);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.simple_list_item_1, this.levelsID);
 
         setListAdapter( adapter );
     }
@@ -61,10 +68,9 @@ public class LevelsActivity extends ListActivity {         //TODO: change in Lis
         //Pass parameters to the next Activity through Preferences file:
         SharedPreferences preferences = getSharedPreferences("GamePrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("Level", levels.get(position));
+        editor.putString("LevelID", this.levelsID.get(position));
+        editor.putString("LevelSetup", this.levelsSetups.get(position));
         editor.commit();
-
-        //TODO: the activity should send to the PlayActivity the setup of the challenge...
 
         startActivity(intent);  // start the game...
     }
