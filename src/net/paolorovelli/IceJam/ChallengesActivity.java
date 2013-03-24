@@ -58,7 +58,7 @@ public class ChallengesActivity extends ListActivity {
     protected void onListItemClick(ListView lv, View v, int position, long id) {
         Intent intent = new Intent(this, LevelsActivity.class);
 
-        //Pass the name of the chosen challenge to the LevelsActivity through Preferences file:
+        //Send the name of the chosen challenge to the LevelsActivity through Preferences file:
         SharedPreferences preferences = getSharedPreferences("GamePrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("ChallengeName",  this.challengesNames.get(position));

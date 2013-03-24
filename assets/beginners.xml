@@ -16,4 +16,22 @@
     <puzzle id="2">
         <setup>(H 0 3 2), (H 0 0 2), (H 3 0 2), (H 4 1 2), (H 3 5 3), (V 2 0 2), (V 0 4 2), (V 3 3 2), (V 4 2 2), (V 5 2 3)</setup>
     </puzzle>
+    <puzzle id="3">
+        <setup>(H 0 3 2), (H 0 0 2), (H 3 0 2), (H 4 1 2), (H 3 5 3), (V 2 0 2), (V 0 4 2), (V 3 3 2), (V 4 2 2), (V 5 2 3)</setup>
+    </puzzle>
+    <puzzle id="4">
+        <setup>(H 0 3 2), (H 0 0 2), (H 3 0 2), (H 4 1 2), (H 3 5 3), (V 2 0 2), (V 0 4 2), (V 3 3 2), (V 4 2 2), (V 5 2 3)</setup>
+    </puzzle>
+    <puzzle id="5">
+        <setup>(H 0 3 2), (H 0 0 2), (H 3 0 2), (H 4 1 2), (H 3 5 3), (V 2 0 2), (V 0 4 2), (V 3 3 2), (V 4 2 2), (V 5 2 3)</setup>
+    </puzzle>
+    <puzzle id="6">
+        <setup>(H 0 3 2), (H 0 0 2), (H 3 0 2), (H 4 1 2), (H 3 5 3), (V 2 0 2), (V 0 4 2), (V 3 3 2), (V 4 2 2), (V 5 2 3)</setup>
+    </puzzle>
+    <puzzle id="7">
+        <setup>(H 0 3 2), (H 0 0 2), (H 3 0 2), (H 4 1 2), (H 3 5 3), (V 2 0 2), (V 0 4 2), (V 3 3 2), (V 4 2 2), (V 5 2 3)</setup>
+    </puzzle>
+    <puzzle id="8">
+        <setup>(H 0 3 2), (H 0 0 2), (H 3 0 2), (H 4 1 2), (H 3 5 3), (V 2 0 2), (V 0 4 2), (V 3 3 2), (V 4 2 2), (V 5 2 3)</setup>
+    </puzzle>
 </challenge>
