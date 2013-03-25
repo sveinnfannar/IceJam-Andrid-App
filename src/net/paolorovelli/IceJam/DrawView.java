@@ -31,7 +31,7 @@ public class DrawView extends View {
     private DrawEventHandler mListener = null;
 
     private List<Shape> mShapes = new ArrayList<Shape>();
-    private GameLogic mGameLogic;
+    private GameLogic mGameLogic = new GameLogic(NUM_COLS, NUM_ROWS);
 
     private int mOffsetX;
     private int mOffsetY;
@@ -60,8 +60,10 @@ public class DrawView extends View {
         canvas.drawRect(0f, 0f, NUM_COLS*50f, NUM_ROWS*50f, mPaint);
 
         for( Shape shape : mShapes ) {
-            mPaint.setColor( shape.getColor() );
-            canvas.drawRect( shape.getRect(), mPaint );
+            // Draw rect
+            mPaint.setColor(shape.getColor());
+            mPaint.setStrokeWidth(0);
+            canvas.drawRect(shape.getRect(), mPaint);
         }
     }
 
@@ -118,6 +120,8 @@ public class DrawView extends View {
                     // Snap position to grid
                     mMovingShape.snapToGrid();
                     invalidate();
+
+                    mGameLogic.isSolved();
 
                     // Add shape to grid again
                     mGameLogic.rebuildGrid();

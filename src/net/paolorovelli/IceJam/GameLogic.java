@@ -10,30 +10,34 @@ import java.util.*;
 import java.util.regex.MatchResult;
 
 public class GameLogic {
-    public static final int NUM_COLS = 6;
-    public static final int NUM_ROWS = 6;
-
-    public static final int GOAL_COL = 5;
-    public static final int GOAL_ROW = 3;
     public static final int GOAL_SHAPE_ID = 0;  // first can assumed to be the goal car.
+    
+    private int mNumCols;
+    private int mNumRows;
 
-    private boolean[][] mGrid = new boolean[NUM_COLS][NUM_ROWS];
-    private List<Shape> mShapes;
-    private boolean mIsSolved;
+    private boolean[][] mGrid;
+    private List<Shape> mShapes = new ArrayList<Shape>();
 
     /**
      *  Constructor
      */
-    public GameLogic() {
-        mShapes = new ArrayList<Shape>();
-        mIsSolved = false;
+    public GameLogic(int numCols, int numRows) {
+        mNumCols = numCols;
+        mNumRows = numRows;
+        mGrid = new boolean[mNumCols][mNumRows];
 
         // Setup grid
-        for (int i = 0; i < NUM_COLS; i++)
-            for (int j = 0; j < NUM_COLS; j++)
+        for (int i = 0; i < mNumCols; i++)
+            for (int j = 0; j < mNumCols; j++)
                 mGrid[i][j] = false;
     }
 
+    /**
+     * Returns the number of columns a give shape can move to the left
+     *
+     * @param shape
+     * @return
+     */
     public int leftMovementBounds(Shape shape) {
         int row = shape.getRow();
         int col = shape.getCol();
@@ -43,15 +47,27 @@ public class GameLogic {
         return col;
     }
 
+    /**
+     * Returns the number of columns a give shape can move to the right
+     *
+     * @param shape
+     * @return
+     */
     public int rightMovementBounds(Shape shape) {
         int row = shape.getRow();
         int col = shape.getCol();
-        for (; col + shape.getLength() < NUM_COLS; col++)
+        for (; col + shape.getLength() < mNumCols; col++)
             if (mGrid[row][col + shape.getLength()])
                 break;
         return col;
     }
 
+    /**
+     * Returns the number of columns a give shape can move upwards
+     *
+     * @param shape
+     * @return
+     */
     public int topMovementBounds(Shape shape) {
         int row = shape.getRow();
         int col = shape.getCol();
@@ -61,16 +77,28 @@ public class GameLogic {
         return row;
     }
 
+    /**
+     * Returns the number of columns a give shape can move downwards
+     *
+     * @param shape
+     * @return
+     */
     public int bottomMovementBounds(Shape shape) {
         int row = shape.getRow();
         int col = shape.getCol();
-        for (; row + shape.getLength() < NUM_ROWS; row++)
+        for (; row + shape.getLength() < mNumRows; row++)
             if (mGrid[row + shape.getLength()][col])
                 break;
         return row;
     }
 
-    public void addToGrid(Shape shape) {
+
+    /**
+     * Add a shape to the boolean grid used by the game logic calculations
+     *
+     * @param shape
+     */
+    private void addToGrid(Shape shape) {
         if (shape.getOrientation() == Shape.Orientation.Horizontal) {
             for (int col = shape.getCol(); col < shape.getCol() + shape.getLength(); col++)
                 mGrid[shape.getRow()][col] = true;
@@ -81,10 +109,15 @@ public class GameLogic {
         }
     }
 
+
+    /**
+     * Rebuild the boolean grid for the game logic.
+     * Should be called after a shape moves.
+     */
     public void rebuildGrid() {
         // Clear grid
-        for (int i = 0; i < NUM_COLS; i++)
-            for (int j = 0; j < NUM_COLS; j++)
+        for (int i = 0; i < mNumCols; i++)
+            for (int j = 0; j < mNumCols; j++)
                 mGrid[i][j] = false;
 
         // Add shapes
@@ -101,7 +134,14 @@ public class GameLogic {
      * @return True if puzzle is solved, false otherwise.
      */
     public boolean isSolved( ) {
-        return mIsSolved;
+        /*
+        if (!mShapes.isEmpty()) {
+            Shape shape = mShapes.get(GOAL_SHAPE_ID);
+            if ((shape.getCol() + shape.getLength()) == mNumCols - 1 && shape.getRow() == (mNumRows + 0.5) / 2)
+                return true;
+        }
+        */
+        return false;
     }
 
     /**
@@ -126,6 +166,26 @@ public class GameLogic {
 
 
     /**
+     * Get the number of columns in the grid
+     *
+     * @return Number of columns
+     */
+    public int getNumCols() {
+        return mNumCols;
+    }
+
+
+    /**
+     * Get the number of rows in the grid
+     *
+     * @return Number of rows
+     */
+    public int getNumRows() {
+        return mNumRows;
+    }
+
+
+    /**
      * Returns a string representation of the puzzle state.
      *
      * @return  A string, representing the state.
@@ -133,8 +193,8 @@ public class GameLogic {
     public String toString()  {
         StringBuilder sb = new StringBuilder();
         sb.append('\n');
-        for (int row = 0; row < NUM_ROWS; row++) {
-            for (int col = 0; col < NUM_COLS; col++) {
+        for (int row = 0; row < mNumRows; row++) {
+            for (int col = 0; col < mNumCols; col++) {
                 if (mGrid[row][col]) {
                     sb.append('x');
                 }

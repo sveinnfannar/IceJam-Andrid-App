@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.graphics.PixelXorXfermode;
 import android.graphics.Rect;
 
+import java.util.Random;
 import java.util.Scanner;
 import java.util.regex.MatchResult;
 
@@ -36,7 +37,8 @@ public class Shape {
         mOrientation = orientation;
         mLength = length;
 
-        mColor = Color.BLUE;
+        Random r = new Random();
+        mColor = Color.rgb(r.nextInt(256),r.nextInt(256),r.nextInt(256));
     }
 
     public void moveTo(int pos) {
