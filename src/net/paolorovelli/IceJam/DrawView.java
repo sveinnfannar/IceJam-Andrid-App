@@ -31,7 +31,7 @@ public class DrawView extends View {
     private DrawEventHandler mListener = null;
 
     private List<Shape> mShapes = new ArrayList<Shape>();
-    private boolean[][] mGrid = new boolean[NUM_COLS][NUM_ROWS];
+    private GameLogic mGameLogic;
 
     private int mOffsetX;
     private int mOffsetY;
@@ -40,38 +40,33 @@ public class DrawView extends View {
     public DrawView(Context context, AttributeSet attrs) {
         super(context, attrs);
         setBackgroundColor(Color.WHITE);
-
-        for (int i = 0; i < NUM_COLS; i++)
-            for (int j = 0; j < NUM_COLS; j++)
-                mGrid[i][j] = false;
     }
 
+    public void setGameLogic(GameLogic gameLogic) {
+        mGameLogic = gameLogic;
+    }
 
     public void setCustomEventHandler(DrawEventHandler listener) {
         mListener = listener;
     }
 
     public void addShape(Shape shape) {
-        mShapes.add(shape);
-
-        if (shape.getOrientation() == Shape.Orientation.Horizontal) {
-            for (int end=shape.getCol()+shape.getLength(), col=shape.getCol(); col<end; ++col) {
-                mGrid[col][shape.getRow()] = true;
-            }
-        }
-        else {
-            for (int end=shape.getRow()+shape.getLength(), row=shape.getRow(); row<end; ++row) {
-                mGrid[shape.getCol()][row] = true;
-            }
-        }
+        mGameLogic.addShape(shape);
+        mShapes = mGameLogic.getShapes();
     }
 
     protected void onDraw(Canvas canvas) {
+        mPaint.setColor(Color.LTGRAY);
+        canvas.drawRect(0f, 0f, NUM_COLS*50f, NUM_ROWS*50f, mPaint);
+
         for( Shape shape : mShapes ) {
             mPaint.setColor( shape.getColor() );
             canvas.drawRect( shape.getRect(), mPaint );
         }
     }
+
+    private int mBoundsMin;
+    private int mBoundsMax;
 
     public boolean onTouchEvent( MotionEvent motionEvent ) {
         int x = (int) motionEvent.getX();
@@ -81,35 +76,36 @@ public class DrawView extends View {
             case MotionEvent.ACTION_DOWN:
                 mMovingShape = shapeLocatedOn(x, y);
                 if (mMovingShape != null) {
+
+                    // Calculate offset
                     Rect shapeRect = mMovingShape.getRect();
                     mOffsetX = x - shapeRect.left;
                     mOffsetY = y - shapeRect.top;
+
+                    // Get the movement bounds
+                    if (mMovingShape.getOrientation() == Shape.Orientation.Horizontal) {
+                        mBoundsMin = mGameLogic.leftMovementBounds(mMovingShape);
+                        mBoundsMax = mGameLogic.rightMovementBounds(mMovingShape);
+                    }
+                    else {
+                        mBoundsMin = mGameLogic.topMovementBounds(mMovingShape);
+                        mBoundsMax = mGameLogic.bottomMovementBounds(mMovingShape);
+                    }
                 }
                 break;
 
             case MotionEvent.ACTION_MOVE:
                 if( mMovingShape != null ) {
+                    x -= mOffsetX;
+                    y -= mOffsetY;
+
                     if (mMovingShape.getOrientation() == Shape.Orientation.Horizontal) {
-                        /*
-                        int row = mMovingShape.getRow();
-
-                        int min = 0;
-                        for (int i = 0; i < mMovingShape.getCol(); i++)
-                            if (mGrid[row][i])
-                                min = i + 1;
-
-                        int max = NUM_COLS;
-                        for (int i = NUM_COLS; i > mMovingShape.getCol() + mMovingShape.getLength(); i--)
-                            if (mGrid[row][i])
-                                max = i;
-
-                        x = max()
-                        */
-                        mMovingShape.moveTo(x - mOffsetX);
+                        x = Math.max(mBoundsMin * 50, Math.min(x, mBoundsMax * 50));
+                        mMovingShape.moveTo(x);
                     }
                     else {
-                        y = Math.max( 0, Math.min( y, getHeight() - mMovingShape.height()));
-                        mMovingShape.moveTo(y - mOffsetY);
+                        y = Math.max(mBoundsMin * 50, Math.min(y, mBoundsMax * 50));
+                        mMovingShape.moveTo(y);
                     }
 
                     invalidate();
@@ -118,8 +114,13 @@ public class DrawView extends View {
 
             case MotionEvent.ACTION_UP:
                 if( mMovingShape != null ) {
+
+                    // Snap position to grid
                     mMovingShape.snapToGrid();
                     invalidate();
+
+                    // Add shape to grid again
+                    mGameLogic.rebuildGrid();
 
                     mMovingShape = null;
 

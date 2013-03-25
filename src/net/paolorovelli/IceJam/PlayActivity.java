@@ -48,8 +48,9 @@ public class PlayActivity extends Activity {
             @Override
             public void run() {
                 // TODO: Use CarFromString method from GameLogic
-                mDrawView.addShape(new Shape(Shape.Orientation.Vertical, 2, 3, 3));
-                mDrawView.addShape(new Shape(Shape.Orientation.Horizontal, 5, 5, 2));
+                mDrawView.setGameLogic(new GameLogic());
+                mDrawView.addShape(new Shape(Shape.Orientation.Vertical, 0, 0, 3));
+                mDrawView.addShape(new Shape(Shape.Orientation.Horizontal, 2, 2, 2));
             }
         });
 

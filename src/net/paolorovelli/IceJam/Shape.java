@@ -4,6 +4,9 @@ import android.graphics.Color;
 import android.graphics.PixelXorXfermode;
 import android.graphics.Rect;
 
+import java.util.Scanner;
+import java.util.regex.MatchResult;
+
 /**
  * IceJam
  * User: Sveinn Fannar Kristjánsson
@@ -98,18 +101,18 @@ public class Shape {
     }
 
     public int getCol() {
-        return (width() + (PIXELS_PER_UNIT / 2)) / PIXELS_PER_UNIT;
+        return mRect.left / PIXELS_PER_UNIT;
     }
 
     public int getRow() {
-        return (height() + (PIXELS_PER_UNIT / 2)) / PIXELS_PER_UNIT;
+        return mRect.top / PIXELS_PER_UNIT;
     }
 
-    public int width() {
+    public int getWidth() {
         return mRect.width();
     }
 
-    public int height() {
+    public int getHeight() {
         return mRect.height();
     }
 
@@ -125,5 +128,46 @@ public class Shape {
         sb.append( getLength() );
         sb.append( ')' );
         return sb.toString();
+    }
+
+    /**
+     * Create a new shape from a string representation
+     *
+     *   (orientation col row length)
+     *
+     *  e.g.  (H 1 2 2) or (V 2 3 3)
+     *
+     * @param shapeStr A string representing a car.
+     * @return A shape object if successful, null otherwise.
+     */
+    public static Shape shapeFromString( String shapeStr ) {
+        Shape shapeReturn = null;
+        Scanner s = new Scanner(shapeStr);
+        s.findInLine("\\s*\\(\\s*(\\w+)\\s*(\\d+)\\s*(\\d+)\\s*(\\d+)\\s*\\)\\s*");
+        try {
+            MatchResult result = s.match();
+            if ( result.groupCount() == 4 ) {
+                boolean isSuccessful = true;
+                Orientation orientation = null;
+                if ( result.group(1).equals("H") ) {
+                    orientation = Orientation.Horizontal;
+                }
+                else if ( result.group(1).equals( "V" ) ) {
+                    orientation = Orientation.Vertical;
+                }
+                else { isSuccessful = false; }
+                if ( isSuccessful ) {
+                    int col = Integer.parseInt( result.group( 2 ) );
+                    int row = Integer.parseInt( result.group( 3 ) );
+                    int length = Integer.parseInt( result.group( 4 ) );
+                    shapeReturn = new Shape( orientation, col, row, length);
+                }
+            }
+        }
+        catch ( IllegalStateException e ) {
+            // Match not found.
+        }
+        s.close();
+        return shapeReturn;
     }
 }
