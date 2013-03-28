@@ -63,29 +63,6 @@ public class Shape {
         return ( (x1 <= x2) && (x2 < x1 + dx1) ) || ( (x2 <= x1) && (x1 < x2 + dx2) );
     }
 
-    private boolean doOverlap(Shape otherShape) {
-        if (mOrientation  == Orientation.Horizontal) {
-            if (otherShape.getOrientation() == Orientation.Horizontal) {
-                return (getRow() == otherShape.getRow()) &&
-                        intersect(getCol(), getLength(), otherShape.getCol(), otherShape.getLength() );
-            }
-            else {
-                return intersect(getCol(), getLength(), otherShape.getCol(), 1 ) &&
-                        intersect(getRow(), 1, otherShape.getRow(), otherShape.getLength());
-            }
-        }
-        else {
-            if (otherShape.getOrientation() == Orientation.Vertical) {
-                return (getCol() == otherShape.getCol()) &&
-                        intersect(getRow(), getLength(), otherShape.getRow(), otherShape.getLength());
-            }
-            else {
-                return intersect(getRow(), getLength(), otherShape.getRow(), 1) &&
-                        intersect(getCol(), 1, otherShape.getCol(), otherShape.getLength());
-            }
-        }
-    }
-
     public Rect getRect() {
         return mRect;
     }

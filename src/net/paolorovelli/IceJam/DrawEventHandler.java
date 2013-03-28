@@ -7,6 +7,7 @@ package net.paolorovelli.IceJam;
  * Time: 1:17PM
  * To change this template use File | Settings | File Templates.
  */
-public interface DrawEventHandler {       //TODO: rename in MoveEventListener
+public interface DrawEventHandler {
     public void onShapeMoved();
+    public void onPuzzleSolved();
 }

@@ -22,14 +22,27 @@ public class GameLogic {
      *  Constructor
      */
     public GameLogic(int numCols, int numRows) {
+        setGridSize(numCols, numRows);
+    }
+
+    /**
+     * Set the size of the grid
+     *
+     * @param numCols
+     * @param numRows
+     */
+    public void setGridSize(int numCols, int numRows) {
         mNumCols = numCols;
         mNumRows = numRows;
-        mGrid = new boolean[mNumCols][mNumRows];
 
         // Setup grid
+        mGrid = new boolean[mNumCols][mNumRows];
         for (int i = 0; i < mNumCols; i++)
             for (int j = 0; j < mNumCols; j++)
                 mGrid[i][j] = false;
+
+        // Place the cars on the grid if there are any
+        rebuildGrid();
     }
 
     /**
@@ -134,13 +147,11 @@ public class GameLogic {
      * @return True if puzzle is solved, false otherwise.
      */
     public boolean isSolved( ) {
-        /*
         if (!mShapes.isEmpty()) {
             Shape shape = mShapes.get(GOAL_SHAPE_ID);
-            if ((shape.getCol() + shape.getLength()) == mNumCols - 1 && shape.getRow() == (mNumRows + 0.5) / 2)
+            if ((shape.getCol() + shape.getLength()) == mNumCols)
                 return true;
         }
-        */
         return false;
     }
 

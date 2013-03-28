@@ -6,13 +6,11 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * DrawViews.
@@ -23,18 +21,17 @@ import java.util.Random;
  */
 public class DrawView extends View {
 
-    public static final int NUM_COLS = 6;
-    public static final int NUM_ROWS = 6;
+    public static final int DEFAULT_NUM_COLS = 6;
+    public static final int DEFAULT_NUM_ROWS = 6;
 
     private Paint mPaint = new Paint();
     private Shape mMovingShape = null;
     private DrawEventHandler mListener = null;
 
     private List<Shape> mShapes = new ArrayList<Shape>();
-    private GameLogic mGameLogic = new GameLogic(NUM_COLS, NUM_ROWS);
+    private GameLogic mGameLogic = new GameLogic(DEFAULT_NUM_COLS, DEFAULT_NUM_ROWS);
 
-    private int mOffsetX;
-    private int mOffsetY;
+    private int mOffsetX, mOffsetY;
 
 
     public DrawView(Context context, AttributeSet attrs) {
@@ -42,8 +39,8 @@ public class DrawView extends View {
         setBackgroundColor(Color.WHITE);
     }
 
-    public void setGameLogic(GameLogic gameLogic) {
-        mGameLogic = gameLogic;
+    public void setGridSize(int cols, int rows) {
+        mGameLogic.setGridSize(cols, rows);
     }
 
     public void setCustomEventHandler(DrawEventHandler listener) {
@@ -57,7 +54,7 @@ public class DrawView extends View {
 
     protected void onDraw(Canvas canvas) {
         mPaint.setColor(Color.LTGRAY);
-        canvas.drawRect(0f, 0f, NUM_COLS*50f, NUM_ROWS*50f, mPaint);
+        canvas.drawRect(0f, 0f, mGameLogic.getNumCols() * 50f, mGameLogic.getNumRows() * 50f, mPaint);
 
         for( Shape shape : mShapes ) {
             // Draw rect
@@ -74,7 +71,7 @@ public class DrawView extends View {
         int x = (int) motionEvent.getX();
         int y = (int) motionEvent.getY();
 
-        switch ( motionEvent.getAction() ) {
+        switch (motionEvent.getAction() ) {
             case MotionEvent.ACTION_DOWN:
                 mMovingShape = shapeLocatedOn(x, y);
                 if (mMovingShape != null) {
@@ -121,15 +118,15 @@ public class DrawView extends View {
                     mMovingShape.snapToGrid();
                     invalidate();
 
-                    mGameLogic.isSolved();
-
-                    // Add shape to grid again
+                    // Rebuild the grid after the change
                     mGameLogic.rebuildGrid();
 
                     mMovingShape = null;
 
-                    if( mListener != null ) {
+                    if(mListener != null) {
                         mListener.onShapeMoved();
+                        if (mGameLogic.isSolved())
+                            mListener.onPuzzleSolved();
                     }
                 }
                 break;
@@ -139,11 +136,9 @@ public class DrawView extends View {
     }
 
     private Shape shapeLocatedOn(int x, int y) {
-        for ( Shape shape : mShapes ) {
-            if ( shape.getRect().contains( x, y ) ) {
+        for (Shape shape : mShapes)
+            if (shape.getRect().contains(x, y))
                 return shape;
-            }
-        }
 
         return null;
     }
