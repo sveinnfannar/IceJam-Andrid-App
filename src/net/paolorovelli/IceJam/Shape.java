@@ -1,7 +1,6 @@
 package net.paolorovelli.IceJam;
 
 import android.graphics.Color;
-import android.graphics.PixelXorXfermode;
 import android.graphics.Rect;
 
 import java.util.Random;
@@ -18,7 +17,7 @@ public class Shape {
 
     public static enum Orientation { Horizontal, Vertical }
 
-    private final int PIXELS_PER_UNIT = 50;
+    private int mPixelsPerUnit = 50;
     private Orientation mOrientation;
     private Rect mRect;
     private int mLength;
@@ -30,9 +29,9 @@ public class Shape {
 
     public Shape(Orientation orientation, int col, int row, int length, boolean goal) {
         if (orientation == Orientation.Horizontal)
-            mRect = new Rect(col * PIXELS_PER_UNIT, row * PIXELS_PER_UNIT, (col + length) * PIXELS_PER_UNIT, (row + 1) * PIXELS_PER_UNIT);
+            mRect = new Rect(col * mPixelsPerUnit, row * mPixelsPerUnit, (col + length) * mPixelsPerUnit, (row + 1) * mPixelsPerUnit);
         else
-            mRect = new Rect(col * PIXELS_PER_UNIT, row * PIXELS_PER_UNIT, (col + 1) * PIXELS_PER_UNIT, (row + length) * PIXELS_PER_UNIT);
+            mRect = new Rect(col * mPixelsPerUnit, row * mPixelsPerUnit, (col + 1) * mPixelsPerUnit, (row + length) * mPixelsPerUnit);
 
         mOrientation = orientation;
         mLength = length;
@@ -52,9 +51,9 @@ public class Shape {
         int newValue;
 
         if (mOrientation == Orientation.Horizontal)
-            newValue = ((mRect.left + PIXELS_PER_UNIT / 2) / PIXELS_PER_UNIT) * PIXELS_PER_UNIT;
+            newValue = ((mRect.left + mPixelsPerUnit / 2) / mPixelsPerUnit) * mPixelsPerUnit;
         else
-            newValue = ((mRect.top + PIXELS_PER_UNIT / 2) / PIXELS_PER_UNIT) * PIXELS_PER_UNIT;
+            newValue = ((mRect.top + mPixelsPerUnit / 2) / mPixelsPerUnit) * mPixelsPerUnit;
 
         moveTo(newValue);
     }
@@ -80,11 +79,11 @@ public class Shape {
     }
 
     public int getCol() {
-        return mRect.left / PIXELS_PER_UNIT;
+        return mRect.left / mPixelsPerUnit;
     }
 
     public int getRow() {
-        return mRect.top / PIXELS_PER_UNIT;
+        return mRect.top / mPixelsPerUnit;
     }
 
     public int getWidth() {
