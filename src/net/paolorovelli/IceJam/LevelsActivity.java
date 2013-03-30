@@ -44,7 +44,7 @@ public class LevelsActivity extends Activity {
         private List<String> cells;
 
         //Image references:
-        private Integer thumbIds = R.drawable.box;
+        private Integer thumbIds = R.drawable.level;
 
         public CellAdapter(Context context, List<String> cells) {
             this.context = context;
@@ -72,30 +72,30 @@ public class LevelsActivity extends Activity {
          * @return
          */
         public View getView(int position, View view, ViewGroup parent) {
-            TextView textView;
+            TextView newView;  // TextView
             if ( view == null ) {  // if it's not recycled, initialize some attributes
-                textView = new TextView( this.context );
+                newView = new TextView( this.context );  // TextView
             } else {
-                textView = (TextView) view;
+                newView = (TextView) view;  // TextView
             }
 
             //Set the ID:
-            textView.setId( Integer.parseInt( this.cells.get(position) ) );  // android:id
+            newView.setId( Integer.parseInt( this.cells.get(position) ) );  // android:id
 
             //Set the text:
-            textView.setText( this.cells.get(position) );  // android:text
-            textView.setTextColor( Color.BLACK );  // android:textColor
-            textView.setTextSize(25);  // android:textSize
-            textView.setTypeface( Typeface.DEFAULT_BOLD );  // android:textStyle
-            textView.setGravity( Gravity.CENTER );  // android:gravity
-            textView.setPadding(0, 30, 0, 0);
+            newView.setText( this.cells.get(position) );  // android:text
+            newView.setTextColor( Color.BLACK );  // android:textColor
+            newView.setTextSize(15);  // android:textSize
+            newView.setTypeface( Typeface.DEFAULT_BOLD );  // android:textStyle
+            newView.setGravity( Gravity.CENTER );  // android:gravity
+            //newView.setPadding(0, 0, 0, 0);
 
             //Set backgorund image:
-            textView.setBackgroundResource( this.thumbIds );  // android:background
-            textView.setWidth(64);
-            textView.setHeight(64);
+            newView.setBackgroundResource( this.thumbIds );  // android:background
+            newView.setWidth(64);
+            newView.setHeight(128);
 
-            return textView;
+            return newView;
         }
     }
 
@@ -110,6 +110,7 @@ public class LevelsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.levels);
 
+        //Find the GridView resource:
         GridView gridview = (GridView) findViewById(R.id.levelsView);
         //gridview.setBackgroundResource(R.drawable.box);
 
@@ -122,6 +123,7 @@ public class LevelsActivity extends Activity {
         //System.out.println("[LEVELS] Challenge name: " + this.challengeName);
         //System.out.println("[LEVELS] Challenge file: " + this.challengeFile);
 
+        //Read the levels file:
         try {
             //Open the assets file:
             InputStream file = getAssets().open( this.challengeFile );

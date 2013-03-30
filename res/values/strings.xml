@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">IceJam</string>
+    <string name="main_play">Continue</string>
+    <string name="main_challenges">Challenges</string>
+    <string name="main_settings">Settings</string>
+    <string name="challenges_title">Select Challenge</string>
     <string name="level_title">Select Level</string>
 </resources>

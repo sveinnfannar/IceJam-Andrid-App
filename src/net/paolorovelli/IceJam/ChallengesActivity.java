@@ -1,16 +1,14 @@
 package net.paolorovelli.IceJam;
 
-import android.*;
-import android.R;
 import android.app.Activity;
 import android.app.ListActivity;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.os.Bundle;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,6 +34,14 @@ public class ChallengesActivity extends ListActivity {
      * @param savedInstanceState
      */
     public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.challenges);
+
+        //Find the ListView resource:
+        //ListView view = (ListView) findViewById(R.id.listChallenges);
+        //view.setBackgroundResource(R.drawable.icebergbackground);
+
+        //Read the challenges file:
         try {
             //Open the assets file:
             InputStream file = getAssets().open( "challengelist.xml" );
@@ -47,11 +53,11 @@ public class ChallengesActivity extends ListActivity {
             e.printStackTrace();
         }
 
-        super.onCreate(savedInstanceState);
+        // Create ArrayAdapter using the challenges:
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,  this.challengesNames);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.simple_list_item_1,  this.challengesNames);
-
-        setListAdapter(adapter);
+        //Set the ArrayAdapter as the ListView's adapter:
+        setListAdapter( adapter );
     }
 
     @Override

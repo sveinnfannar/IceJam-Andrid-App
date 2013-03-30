@@ -8,20 +8,20 @@
     <TextView android:layout_width="fill_parent"
               android:layout_height="wrap_content"
               android:layout_marginTop="10dp"
-              android:layout_marginBottom="10dp"
-              android:text="@string/level_title"
+              android:text="@string/challenges_title"
               android:textColor="#002060"
               android:textSize="20dp"
               android:textStyle="bold"
               android:gravity="center_horizontal" />
 
-    <GridView android:id="@+id/levelsView"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:columnWidth="64dp"
-              android:numColumns="auto_fit"
-              android:verticalSpacing="16dp"
-              android:horizontalSpacing="16dp"
-              android:stretchMode="columnWidth"
-              android:gravity="center" />
+    <ListView
+            android:id="@android:id/list"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+
+    <TextView android:id="@android:id/empty"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Empty set"
+            />
 </LinearLayout>
