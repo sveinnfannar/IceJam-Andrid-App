@@ -21,8 +21,11 @@ import java.util.List;
  */
 public class PlayActivity extends Activity {
     private Parser parser = new Parser();
+    private String levelID = new String();
+    private String levelSetup = new String();
     DrawView mDrawView;
     TextView mMovesView;
+    TextView mLevelView;
 
     private int mColorFirst;
     private int mColorSecond;
@@ -31,8 +34,10 @@ public class PlayActivity extends Activity {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.game );
 
+        //Find the View resource:
         mDrawView = (DrawView) findViewById( R.id.drawView );
-        mMovesView = (TextView) findViewById( R.id.moves );
+        mMovesView = (TextView) findViewById( R.id.numberMoves );
+        mLevelView = (TextView) findViewById( R.id.numberLevel );
 
         //Read parameters from the last Activity through Intent:
         //Intent intent = getIntent();
@@ -41,10 +46,17 @@ public class PlayActivity extends Activity {
 
         //Read parameters from the last Activity through Preferences file:
         SharedPreferences preferences = getSharedPreferences("GamePrefs", MODE_PRIVATE);
+        this.levelID = preferences.getString("LevelID", "");
+        this.levelSetup = preferences.getString("LevelSetup", "");
+
         mColorFirst = Color.RED;
         mColorSecond = Color.BLUE;
 
-        final String puzzleStr = "(H 1 3 2), (V 0 0 2), (V 0 2 3)";
+        //Update Level TextView:
+        mLevelView.setText( this.levelID );
+
+        //Load level:
+        final String puzzleStr = this.levelSetup;  // "(H 1 3 2), (V 0 0 2), (V 0 2 3)";
 
         mDrawView.post(new Runnable() {
             @Override

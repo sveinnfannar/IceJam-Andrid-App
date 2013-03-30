@@ -42,6 +42,7 @@
                 android:layout_height="0dp"
                 android:text="@string/main_play"
                 android:onClick="buttonClick"
+                android:soundEffectsEnabled="true"
                 />
         <Button
                 android:id="@+id/buttonChallenges"
@@ -50,6 +51,7 @@
                 android:layout_height="0dp"
                 android:text="@string/main_challenges"
                 android:onClick="buttonClick"
+                android:soundEffectsEnabled="true"
                 />
         <Button
                 android:id="@+id/buttonSettings"
@@ -58,6 +60,7 @@
                 android:layout_height="0dp"
                 android:text="@string/main_settings"
                 android:onClick="buttonClick"
+                android:soundEffectsEnabled="true"
                 />
     </LinearLayout>
 </LinearLayout>
