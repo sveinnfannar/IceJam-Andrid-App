@@ -5,7 +5,8 @@
               android:layout_height="fill_parent"
               android:background="@drawable/icebergbackground">
 
-    <TextView android:layout_width="fill_parent"
+    <TextView android:id="@+id/levelsTitle"
+              android:layout_width="fill_parent"
               android:layout_height="wrap_content"
               android:layout_marginTop="10dp"
               android:layout_marginBottom="10dp"

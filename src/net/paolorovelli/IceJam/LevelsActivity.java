@@ -25,8 +25,9 @@ import java.util.List;
  * @time 9:55AM
  */
 public class LevelsActivity extends Activity {
-    private static DatabaseHelper db;
-    private Parser parser = new Parser();
+    private static DatabaseHelper db;  // SQLite DB object
+    private Parser parser = new Parser();  // XML parser object
+
     private String challengeName = new String();
     private String challengeFile = new String();
     private List<String> levelsID = new ArrayList<String>();
@@ -54,6 +55,7 @@ public class LevelsActivity extends Activity {
             this.challenge = challenge;
             this.cells = cells;
 
+            //Instantiate the SQLite DB object:
             db = new DatabaseHelper(context);
         }
 
@@ -96,18 +98,19 @@ public class LevelsActivity extends Activity {
             newView.setGravity( Gravity.CENTER );  // android:gravity
             //newView.setPadding(0, 0, 0, 0);
 
-            //Check if the level has been already solved:
-            if( db.isSolved(this.challenge, this.cells.get(position)) ) {  // already solved...
+            //Query the SQLite DB to check if the level has been already solved:
+            int moves = db.isSolved(this.challenge, this.cells.get(position));  // the number of moves needed to solve the puzzle... (0 if never solved)
+            if( moves > 0 ) {  // already solved...
                 //Set background image:
                 newView.setBackgroundResource( this.thumbSolvedIds );  // android:background
             }
-            else {  // !db.isSolved(this.challenge, this.cells.get(position))  // NOT solved yet!
+            else {  // moves == 0  // NOT solved yet!
                 //Set background image:
                 newView.setBackgroundResource( this.thumbIds );  // android:background
             }
 
             //Debug:
-            //System.out.println("[DB] Solved: " + db.isSolved(this.challenge, this.cells.get(position)));
+            //System.out.println("[SQLite] Solved: " + db.isSolved(this.challenge, this.cells.get(position)));
 
             //Set background image size:
             newView.setWidth(64);

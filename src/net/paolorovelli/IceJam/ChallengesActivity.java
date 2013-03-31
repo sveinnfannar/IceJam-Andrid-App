@@ -23,7 +23,8 @@ import java.util.List;
  * @time 9:55AM
  */
 public class ChallengesActivity extends ListActivity {
-    private Parser parser = new Parser();
+    private Parser parser = new Parser();  // XML parser object
+
     private List<String> challengesNames = new ArrayList<String>();
     private List<String> challengesFiles = new ArrayList<String>();
 
