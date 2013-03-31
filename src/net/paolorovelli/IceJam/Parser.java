@@ -9,12 +9,13 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * XML Parser.
  *
- * @author Paolo Rovelli
+ * @author Paolo Rovelli and Sveinn Fannar Kristjánsson.
  * @date 03/24/2013
  * @time 9:55AM
  */
@@ -22,8 +23,7 @@ public class Parser {
     /**
      * Class constructor.
      */
-    public Parser() {
-    }
+    public Parser() {}
 
 
     /**
@@ -87,7 +87,7 @@ public class Parser {
                     Element eElement = (Element) nNode;
 
                     //Read the elements:
-                    names.add( eElement.getAttribute("id") );
+                    names.add(eElement.getAttribute("id"));
                     setups.add( eElement.getElementsByTagName("setup").item(0).getTextContent() );
 
                     //Debug:

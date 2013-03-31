@@ -6,14 +6,14 @@
     </challenge>
     <challenge>
         <name>Intermediate</name>
-        <puzzles>beginners.xml</puzzles>
+        <puzzles>intermediate.xml</puzzles>
     </challenge>
     <challenge>
         <name>Advanced</name>
-        <puzzles>beginners.xml</puzzles>
+        <puzzles>advanced.xml</puzzles>
     </challenge>
     <challenge>
         <name>Ultimate</name>
-        <puzzles>beginners.xml</puzzles>
+        <puzzles>ultimate.xml</puzzles>
     </challenge>
 </challenges>

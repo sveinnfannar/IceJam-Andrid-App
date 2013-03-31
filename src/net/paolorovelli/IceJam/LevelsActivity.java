@@ -25,6 +25,7 @@ import java.util.List;
  * @time 9:55AM
  */
 public class LevelsActivity extends Activity {
+    private static DatabaseHelper db;
     private Parser parser = new Parser();
     private String challengeName = new String();
     private String challengeFile = new String();
@@ -41,14 +42,19 @@ public class LevelsActivity extends Activity {
      */
     public static class CellAdapter extends BaseAdapter {
         private Context context;
+        private String challenge;
         private List<String> cells;
 
         //Image references:
         private Integer thumbIds = R.drawable.level;
+        private Integer thumbSolvedIds = R.drawable.levelsolved;
 
-        public CellAdapter(Context context, List<String> cells) {
+        public CellAdapter(Context context, String challenge, List<String> cells) {
             this.context = context;
+            this.challenge = challenge;
             this.cells = cells;
+
+            db = new DatabaseHelper(context);
         }
 
         public int getCount() {
@@ -90,8 +96,20 @@ public class LevelsActivity extends Activity {
             newView.setGravity( Gravity.CENTER );  // android:gravity
             //newView.setPadding(0, 0, 0, 0);
 
-            //Set backgorund image:
-            newView.setBackgroundResource( this.thumbIds );  // android:background
+            //Check if the level has been already solved:
+            if( db.isSolved(this.challenge, this.cells.get(position)) ) {  // already solved...
+                //Set background image:
+                newView.setBackgroundResource( this.thumbSolvedIds );  // android:background
+            }
+            else {  // !db.isSolved(this.challenge, this.cells.get(position))  // NOT solved yet!
+                //Set background image:
+                newView.setBackgroundResource( this.thumbIds );  // android:background
+            }
+
+            //Debug:
+            //System.out.println("[DB] Solved: " + db.isSolved(this.challenge, this.cells.get(position)));
+
+            //Set background image size:
             newView.setWidth(64);
             newView.setHeight(128);
 
@@ -138,7 +156,7 @@ public class LevelsActivity extends Activity {
         //Set the custom ArrayAdapter to the grid:
         //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, this.levelsID);
         //gridview.setAdapter( adapter );
-        gridview.setAdapter( new CellAdapter(this, this.levelsID) );
+        gridview.setAdapter( new CellAdapter(this, this.challengeName, this.levelsID) );
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
