@@ -81,12 +81,48 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         int moves = 0;
         if( cursor.moveToFirst() ) {  // moves the Cursor to the first row in the result set...
             moves = cursor.getInt( cursor.getColumnIndex(DATABASE_TABLE_ATTR_MOVES) );
+
+            //Debug:
+            //System.out.println("[SQLite] moves: " + moves);
         }
 
         //Close the Cursor:
         cursor.close();
 
         return moves;
+    }
+
+
+    /**
+     * Get the number of times a puzzle has been solved.
+     *
+     * @param challenge  the challenge to which the level belong.
+     * @param level  the level solved.
+     * @return the number of times a puzzle has been solved, zero if never solved.
+     */
+    public int nTimesSolved(String challenge, String level) {
+        //SQL query:
+        String query = "SELECT COUNT(" + DATABASE_TABLE_ATTR_ID + ") AS " + DATABASE_TABLE_ATTR_ID +
+                " FROM " + DATABASE_TABLE_NAME +
+                " WHERE " + DATABASE_TABLE_ATTR_CHALLENGE + "=? AND " + DATABASE_TABLE_ATTR_LEVEL + "=?";
+
+        //Execute the query:
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, new String [] {challenge, level});
+
+        //Read the result of the query:
+        int nTimes = 0;
+        if( cursor.moveToFirst() ) {  // moves the Cursor to the first row in the result set...
+            nTimes = cursor.getInt( cursor.getColumnIndex(DATABASE_TABLE_ATTR_ID) );
+
+            //Debug:
+            //System.out.println("[SQLite] nTimes: " + nTimes);
+        }
+
+        //Close the Cursor:
+        cursor.close();
+
+        return nTimes;
     }
 
 
@@ -107,5 +143,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("moves", moves);
 
         db.insertOrThrow(DATABASE_TABLE_NAME, null, values);
+    }
+
+
+    /**
+     * Get if the database is empty (no puzzles solved) or not.
+     *
+     * @return true if the database is empty (no puzzles solved), false otherwise.
+     */
+    public boolean isEmpty() {
+        //SQL query:
+        String query = "SELECT COUNT(" + DATABASE_TABLE_ATTR_ID + ") AS " + DATABASE_TABLE_ATTR_ID +
+                " FROM " + DATABASE_TABLE_NAME;
+
+        //Execute the query:
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        //Read the result of the query:
+        if( cursor.moveToFirst() && cursor.getInt( cursor.getColumnIndex(DATABASE_TABLE_ATTR_ID) ) > 0 ) {  // moves the Cursor to the first row in the result set...
+            //Debug
+            //System.out.println("[SQLite] Number of IDs: " + cursor.getInt( cursor.getColumnIndex(DATABASE_TABLE_ATTR_ID) ));
+
+            return false;
+        }
+
+        //Close the Cursor:
+        cursor.close();
+
+        return true;
     }
 }

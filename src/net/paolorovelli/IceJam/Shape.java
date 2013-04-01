@@ -8,13 +8,13 @@ import java.util.Scanner;
 import java.util.regex.MatchResult;
 
 /**
- * IceJam
- * User: Sveinn Fannar Kristjánsson
- * Date: 3/24/13
- * Time: 6:21 AM
+ * Shape class.
+ *
+ * @author Paolo Rovelli and Sveinn Fannar Kristjánsson.
+ * @date 3/24/13
+ * @time 6:21 AM
  */
 public class Shape {
-
     public static enum Orientation { Horizontal, Vertical }
 
     private int mPixelsPerUnit = 50;
@@ -23,23 +23,57 @@ public class Shape {
     private int mLength;
     private int mColor; // TODO: Add a texture instead of color
 
+
+    /**
+     * Class constructor.
+     *
+     * @param orientation
+     * @param col
+     * @param row
+     * @param length
+     */
     public Shape(Orientation orientation, int col, int row, int length) {
         this(orientation, col, row, length, false);
     }
 
+
+    /**
+     * Class constructor.
+     *
+     * @param orientation
+     * @param col
+     * @param row
+     * @param length
+     * @param goal
+     */
     public Shape(Orientation orientation, int col, int row, int length, boolean goal) {
-        if (orientation == Orientation.Horizontal)
+        if ( orientation == Orientation.Horizontal ) {
             mRect = new Rect(col * mPixelsPerUnit, row * mPixelsPerUnit, (col + length) * mPixelsPerUnit, (row + 1) * mPixelsPerUnit);
-        else
+        }
+        else {
             mRect = new Rect(col * mPixelsPerUnit, row * mPixelsPerUnit, (col + 1) * mPixelsPerUnit, (row + length) * mPixelsPerUnit);
+        }
 
         mOrientation = orientation;
         mLength = length;
 
+        //Random color:
         Random r = new Random();
         mColor = Color.rgb(r.nextInt(256),r.nextInt(256),r.nextInt(256));
+
+        //Iceberg:
+        //mColor = Color.rgb(172, 209, 233);
+
+        //Boat:
+        //mColor = Color.rgb(123, 74, 18);
     }
 
+
+    /**
+     * Move to.
+     *
+     * @param pos
+     */
     public void moveTo(int pos) {
         if (mOrientation == Orientation.Horizontal)
             mRect.offsetTo(pos, mRect.top);
@@ -47,6 +81,10 @@ public class Shape {
             mRect.offsetTo(mRect.left, pos);
     }
 
+
+    /**
+     * Snap to grid.
+     */
     public void snapToGrid() {
         int newValue;
 
@@ -58,42 +96,106 @@ public class Shape {
         moveTo(newValue);
     }
 
+
+    /**
+     * Intersect.
+     *
+     * @param x1
+     * @param dx1
+     * @param x2
+     * @param dx2
+     * @return
+     */
     private static boolean intersect( int x1, int dx1, int x2, int dx2 ) {
         return ( (x1 <= x2) && (x2 < x1 + dx1) ) || ( (x2 <= x1) && (x1 < x2 + dx2) );
     }
 
+
+    /**
+     * Get rect.
+     *
+     * @return
+     */
     public Rect getRect() {
         return mRect;
     }
 
+
+    /**
+     * Get color.
+     *
+     * @return
+     */
     public int getColor() {
         return mColor;
     }
 
+
+    /**
+     * Get orientation.
+     *
+     * @return
+     */
     public Orientation getOrientation() {
         return mOrientation;
     }
 
+
+    /**
+     * Get lenght.
+     *
+     * @return
+     */
     public int getLength() {
         return mLength;
     }
 
+
+    /**
+     * Get color.
+     *
+     * @return
+     */
     public int getCol() {
         return mRect.left / mPixelsPerUnit;
     }
 
+
+    /**
+     * Get row.
+     *
+     * @return
+     */
     public int getRow() {
         return mRect.top / mPixelsPerUnit;
     }
 
+
+    /**
+     * Get width.
+     *
+     * @return
+     */
     public int getWidth() {
         return mRect.width();
     }
 
+
+    /**
+     * Get height.
+     *
+     * @return
+     */
     public int getHeight() {
         return mRect.height();
     }
 
+
+    /**
+     * To string.
+     *
+     * @return
+     */
     public String toString( ) {
         StringBuilder sb = new StringBuilder();
         sb.append( '(' );
@@ -107,6 +209,7 @@ public class Shape {
         sb.append( ')' );
         return sb.toString();
     }
+
 
     /**
      * Create a new shape from a string representation

@@ -10,4 +10,10 @@
     <string name="game_level">Level</string>
     <string name="game_moves">Moves:</string>
     <string name="game_best">Best:</string>
+    <string name="dialog_moves">Number of moves:</string>
+    <string name="dialog_best">Previous record:</string>
+    <string name="dialog_ntimes">Number of times solved:</string>
+    <string name="dialog_goto_next">Next</string>
+    <string name="dialog_goto_menu">Menu</string>
+    <string name="dialog_goto_retry">Retry</string>
 </resources>

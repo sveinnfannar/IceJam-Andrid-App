@@ -3,65 +3,64 @@
               android:orientation="vertical"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
+              android:paddingTop="5dp"
+              android:paddingBottom="25dp"
+              android:paddingLeft="25dp"
+              android:paddingRight="25dp"
               android:background="@drawable/icebergbackground">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   android:orientation="vertical"
-                  android:layout_marginLeft="25dp"
-                  android:layout_marginRight="25dp"
-                  android:layout_marginBottom="25dp"
-                  android:layout_marginTop="10dp"
+                  android:layout_weight="3"
                   android:layout_width="fill_parent"
-                  android:layout_height="fill_parent">
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:orientation="vertical"
-                      android:layout_weight="3"
-                      android:layout_width="fill_parent"
-                      android:layout_height="0dp">
-            <TextView
-                    android:layout_weight="1"
-                    android:layout_width="fill_parent"
-                    android:layout_height="0dp"
-                    android:text="@string/app_name"
-                    android:textColor="#002060"
-                    android:textSize="45dp"
-                    android:textStyle="bold"
-                    android:gravity="center_horizontal"
-                    />
-            <ImageView
-                    android:layout_weight="2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_gravity="right"
-                    android:background="@drawable/ship"
-                    />
-        </LinearLayout>
-        <Button
-                android:id="@+id/buttonPlay"
+                  android:layout_height="0dp">
+        <TextView
                 android:layout_weight="1"
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
-                android:text="@string/main_play"
-                android:onClick="buttonClick"
-                android:soundEffectsEnabled="true"
+                android:text="@string/app_name"
+                android:textColor="#002060"
+                android:textSize="45dp"
+                android:textStyle="bold"
+                android:gravity="center_horizontal"
                 />
-        <Button
-                android:id="@+id/buttonChallenges"
-                android:layout_weight="1"
-                android:layout_width="fill_parent"
+
+        <ImageView
+                android:layout_weight="2"
+                android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:text="@string/main_challenges"
-                android:onClick="buttonClick"
-                android:soundEffectsEnabled="true"
-                />
-        <Button
-                android:id="@+id/buttonSettings"
-                android:layout_weight="1"
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:text="@string/main_settings"
-                android:onClick="buttonClick"
-                android:soundEffectsEnabled="true"
+                android:layout_gravity="right"
+                android:background="@drawable/ship"
                 />
     </LinearLayout>
+
+    <Button
+            android:id="@+id/buttonPlay"
+            android:layout_weight="1"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:text="@string/main_play"
+            android:onClick="buttonClick"
+            android:soundEffectsEnabled="true"
+            />
+
+    <Button
+            android:id="@+id/buttonChallenges"
+            android:layout_weight="1"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:text="@string/main_challenges"
+            android:onClick="buttonClick"
+            android:soundEffectsEnabled="true"
+            />
+
+    <Button
+            android:id="@+id/buttonSettings"
+            android:layout_weight="1"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:text="@string/main_settings"
+            android:onClick="buttonClick"
+            android:soundEffectsEnabled="true"
+            />
 </LinearLayout>
 

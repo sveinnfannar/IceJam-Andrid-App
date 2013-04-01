@@ -1,11 +1,9 @@
 package net.paolorovelli.IceJam;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
-import android.view.SoundEffectConstants;
 import android.view.View;
 import android.widget.Button;
 
@@ -17,6 +15,7 @@ import android.widget.Button;
  * @time 9:55AM
  */
 public class MainActivity extends Activity {
+    private DatabaseHelper db = new DatabaseHelper(this);  // SQLite DB object
     AudioManager audioManager;
 
 
@@ -27,6 +26,12 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
+        //Instantiate the SQLite DB object:
+        if( db.isEmpty() ) {  // the database is empty!
+            Button continueButton = (Button) findViewById(R.id.buttonPlay);
+            continueButton.setEnabled(false);
+        }
     }
 
     public void buttonClick(View view) {

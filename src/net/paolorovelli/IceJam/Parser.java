@@ -68,6 +68,8 @@ public class Parser {
      * Parse the levels (puzzles).
      *
      * @param is
+     * @param names
+     * @param setups
      * @throws IOException
      */
     public void parseLevels(InputStream is, List<String> names, List<String> setups) throws IOException {
@@ -99,5 +101,47 @@ public class Parser {
         catch(Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    /**
+     * Parse a custom level (puzzle).
+     *
+     * @param is
+     * @param level
+     * @return the setup.
+     * @throws IOException
+     */
+    public String parseTheLevel(InputStream is, String level) throws IOException {
+        try {
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(is);
+
+            //Debug:
+            //System.out.println( doc.getDocumentElement().getNodeName() );
+
+            NodeList nList = doc.getElementsByTagName("puzzle");
+            for (int i = 0; i < nList.getLength(); i++) {
+                Node nNode = nList.item(i);
+
+                if ( nNode.getNodeType() == Node.ELEMENT_NODE ) {
+                    Element eElement = (Element) nNode;
+
+                    if( eElement.getAttribute("id").equals( level ) ) {
+                        //Debug:
+                        //System.out.println("[PARSER] Puzzle level: " + eElement.getAttribute("id"));
+                        //System.out.println("[PARSER] Puzzle setup: " + eElement.getElementsByTagName("setup").item(0).getTextContent());
+
+                        return eElement.getElementsByTagName("setup").item(0).getTextContent();
+                    }
+                }
+            }
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

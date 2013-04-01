@@ -7,8 +7,14 @@ package net.paolorovelli.IceJam;
 import android.util.Log;
 
 import java.util.*;
-import java.util.regex.MatchResult;
 
+/**
+ * Play activity of the game.
+ *
+ * @author Yngvi.
+ * @date 03/24/2013
+ * @time 9:55AM
+ */
 public class GameLogic {
     public static final int GOAL_SHAPE_ID = 0;  // first can assumed to be the goal car.
     
@@ -18,15 +24,17 @@ public class GameLogic {
     private boolean[][] mGrid;
     private List<Shape> mShapes = new ArrayList<Shape>();
 
+
     /**
-     *  Constructor
+     *  Class constructor.
      */
     public GameLogic(int numCols, int numRows) {
         setGridSize(numCols, numRows);
     }
 
+
     /**
-     * Set the size of the grid
+     * Set the size of the grid.
      *
      * @param numCols
      * @param numRows
@@ -45,8 +53,9 @@ public class GameLogic {
         rebuildGrid();
     }
 
+
     /**
-     * Returns the number of columns a give shape can move to the left
+     * Returns the number of columns a give shape can move to the left.
      *
      * @param shape
      * @return
@@ -60,8 +69,9 @@ public class GameLogic {
         return col;
     }
 
+
     /**
-     * Returns the number of columns a give shape can move to the right
+     * Returns the number of columns a give shape can move to the right.
      *
      * @param shape
      * @return
@@ -75,8 +85,9 @@ public class GameLogic {
         return col;
     }
 
+
     /**
-     * Returns the number of columns a give shape can move upwards
+     * Returns the number of columns a give shape can move upwards.
      *
      * @param shape
      * @return
@@ -90,8 +101,9 @@ public class GameLogic {
         return row;
     }
 
+
     /**
-     * Returns the number of columns a give shape can move downwards
+     * Returns the number of columns a give shape can move downwards.
      *
      * @param shape
      * @return
@@ -141,19 +153,21 @@ public class GameLogic {
         Log.d("GameLogic", this.toString());
     }
 
+
     /**
      * Check whether the puzzle has been solved.
      *
      * @return True if puzzle is solved, false otherwise.
      */
     public boolean isSolved( ) {
-        if (!mShapes.isEmpty()) {
+        if ( !mShapes.isEmpty() ) {
             Shape shape = mShapes.get(GOAL_SHAPE_ID);
-            if ((shape.getCol() + shape.getLength()) == mNumCols)
+            if ( (shape.getCol() + shape.getLength()) == mNumCols )
                 return true;
         }
         return false;
     }
+
 
     /**
      * Adds a shape to the game logic
