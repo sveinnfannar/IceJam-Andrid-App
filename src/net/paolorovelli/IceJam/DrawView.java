@@ -66,6 +66,9 @@ public class DrawView extends View {
     }
 
     protected void onDraw(Canvas canvas) {
+        mPaint.setColor(Color.argb(128, 128, 128, 128));
+        canvas.drawRect(0, 0, mGameLogic.getNumCols() * mPixelsPerUnit, mGameLogic.getNumRows() * mPixelsPerUnit, mPaint);
+
         for( Shape shape : mShapes ) {
             // Draw rect
             mPaint.setColor(shape.getColor());
