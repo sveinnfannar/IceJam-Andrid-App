@@ -91,13 +91,9 @@ public class PlayActivity extends Activity {
                 //Set the grid size:
                 mDrawView.setGridSize(6, 6);
 
-                //mDrawView.addShape(new Shape(Shape.Orientation.Vertical, 0, 0, 3));
-                //mDrawView.addShape(new Shape(Shape.Orientation.Horizontal, 2, 2, 2));
-
                 // Add the shapes defined in the xml file
                 for (String shapeStr : puzzleStr.split(", ")) {
-                    //Add a shape:
-                    mDrawView.addShape( Shape.shapeFromString(shapeStr) );
+                    mDrawView.addShape(Shape.shapeFromString(shapeStr));
                 }
             }
         });

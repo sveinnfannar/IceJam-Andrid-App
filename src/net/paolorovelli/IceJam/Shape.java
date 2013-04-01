@@ -19,10 +19,11 @@ public class Shape {
 
     private int mPixelsPerUnit = 50;
     private Orientation mOrientation;
+    private boolean mIsGoalShape;
     private Rect mRect;
+    private int mCol, mRow;
     private int mLength;
     private int mColor; // TODO: Add a texture instead of color
-
 
     /**
      * Class constructor.
@@ -33,41 +34,22 @@ public class Shape {
      * @param length
      */
     public Shape(Orientation orientation, int col, int row, int length) {
-        this(orientation, col, row, length, false);
-    }
-
-
-    /**
-     * Class constructor.
-     *
-     * @param orientation
-     * @param col
-     * @param row
-     * @param length
-     * @param goal
-     */
-    public Shape(Orientation orientation, int col, int row, int length, boolean goal) {
-        if ( orientation == Orientation.Horizontal ) {
-            mRect = new Rect(col * mPixelsPerUnit, row * mPixelsPerUnit, (col + length) * mPixelsPerUnit, (row + 1) * mPixelsPerUnit);
-        }
-        else {
-            mRect = new Rect(col * mPixelsPerUnit, row * mPixelsPerUnit, (col + 1) * mPixelsPerUnit, (row + length) * mPixelsPerUnit);
-        }
-
         mOrientation = orientation;
         mLength = length;
+        mCol = col;
+        mRow = row;
 
-        //Random color:
-        Random r = new Random();
-        mColor = Color.rgb(r.nextInt(256),r.nextInt(256),r.nextInt(256));
-
-        //Iceberg:
-        //mColor = Color.rgb(172, 209, 233);
-
-        //Boat:
-        //mColor = Color.rgb(123, 74, 18);
+        createRect();
+        setIsGoalShape(false);
     }
 
+
+    private void createRect() {
+        if (mOrientation == Orientation.Horizontal)
+            mRect = new Rect(mCol * mPixelsPerUnit, mRow * mPixelsPerUnit, (mCol + mLength) * mPixelsPerUnit, (mRow + 1) * mPixelsPerUnit);
+        else
+            mRect = new Rect(mCol * mPixelsPerUnit, mRow * mPixelsPerUnit, (mCol + 1) * mPixelsPerUnit, (mRow + mLength) * mPixelsPerUnit);
+    }
 
     /**
      * Move to.
@@ -88,10 +70,15 @@ public class Shape {
     public void snapToGrid() {
         int newValue;
 
-        if (mOrientation == Orientation.Horizontal)
+        if (mOrientation == Orientation.Horizontal) {
             newValue = ((mRect.left + mPixelsPerUnit / 2) / mPixelsPerUnit) * mPixelsPerUnit;
-        else
+            mCol = newValue / mPixelsPerUnit;
+        }
+        else {
             newValue = ((mRect.top + mPixelsPerUnit / 2) / mPixelsPerUnit) * mPixelsPerUnit;
+            mRow = newValue / mPixelsPerUnit;
+        }
+
 
         moveTo(newValue);
     }
@@ -157,7 +144,7 @@ public class Shape {
      * @return
      */
     public int getCol() {
-        return mRect.left / mPixelsPerUnit;
+        return mCol;
     }
 
 
@@ -167,7 +154,7 @@ public class Shape {
      * @return
      */
     public int getRow() {
-        return mRect.top / mPixelsPerUnit;
+        return mRow;
     }
 
 
@@ -188,6 +175,31 @@ public class Shape {
      */
     public int getHeight() {
         return mRect.height();
+    }
+
+    /**
+     * Set pixels per unit (row, col)
+     *
+     * @param pixelsPerUnit
+     */
+    public void setPixelsPerUnit(int pixelsPerUnit) {
+        mPixelsPerUnit = pixelsPerUnit;
+        createRect();
+    }
+
+
+    public void setIsGoalShape(boolean isGoalShape) {
+        mIsGoalShape = isGoalShape;
+
+        if (isGoalShape)
+            mColor = Color.rgb(172, 209, 233);
+        else
+            mColor = Color.rgb(123, 74, 18);
+    }
+
+
+    public boolean isGoalShape() {
+        return mIsGoalShape;
     }
 
 

@@ -160,9 +160,9 @@ public class GameLogic {
      * @return True if puzzle is solved, false otherwise.
      */
     public boolean isSolved( ) {
-        if ( !mShapes.isEmpty() ) {
+        if (!mShapes.isEmpty()) {
             Shape shape = mShapes.get(GOAL_SHAPE_ID);
-            if ( (shape.getCol() + shape.getLength()) == mNumCols )
+            if ((shape.getCol() + shape.getLength()) == mNumCols)
                 return true;
         }
         return false;
@@ -175,6 +175,8 @@ public class GameLogic {
      * @param shape
      */
     public void addShape(Shape shape) {
+        if (mShapes.isEmpty())
+            shape.setIsGoalShape(true);
         mShapes.add(shape);
         addToGrid(shape);
     }

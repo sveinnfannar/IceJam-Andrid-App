@@ -1,5 +1,6 @@
 package net.paolorovelli.IceJam;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -8,6 +9,9 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,15 +36,23 @@ public class DrawView extends View {
     private GameLogic mGameLogic = new GameLogic(DEFAULT_NUM_COLS, DEFAULT_NUM_ROWS);
 
     private int mOffsetX, mOffsetY;
+    private int mPreviousCol, mPreviousRow;
+    private int mPixelsPerUnit;
 
 
     public DrawView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setBackgroundColor(Color.WHITE);
+        setBackgroundColor(Color.TRANSPARENT);
+
+        mPixelsPerUnit = getWidth() / DEFAULT_NUM_COLS;
     }
 
     public void setGridSize(int cols, int rows) {
         mGameLogic.setGridSize(cols, rows);
+        mPixelsPerUnit = getWidth() / cols;
+        for (Shape shape : mShapes) {
+            shape.setPixelsPerUnit(mPixelsPerUnit);
+        }
     }
 
     public void setCustomEventHandler(DrawEventHandler listener) {
@@ -48,14 +60,12 @@ public class DrawView extends View {
     }
 
     public void addShape(Shape shape) {
+        shape.setPixelsPerUnit(getWidth() / mGameLogic.getNumCols());
         mGameLogic.addShape(shape);
         mShapes = mGameLogic.getShapes();
     }
 
     protected void onDraw(Canvas canvas) {
-        mPaint.setColor(Color.LTGRAY);
-        canvas.drawRect(0f, 0f, mGameLogic.getNumCols() * 50f, mGameLogic.getNumRows() * 50f, mPaint);
-
         for( Shape shape : mShapes ) {
             // Draw rect
             mPaint.setColor(shape.getColor());
@@ -90,6 +100,9 @@ public class DrawView extends View {
                         mBoundsMin = mGameLogic.topMovementBounds(mMovingShape);
                         mBoundsMax = mGameLogic.bottomMovementBounds(mMovingShape);
                     }
+
+                    mPreviousCol = mMovingShape.getCol();
+                    mPreviousRow = mMovingShape.getRow();
                 }
                 break;
 
@@ -99,11 +112,11 @@ public class DrawView extends View {
                     y -= mOffsetY;
 
                     if (mMovingShape.getOrientation() == Shape.Orientation.Horizontal) {
-                        x = Math.max(mBoundsMin * 50, Math.min(x, mBoundsMax * 50));
+                        x = Math.max(mBoundsMin * mPixelsPerUnit, Math.min(x, mBoundsMax * mPixelsPerUnit));
                         mMovingShape.moveTo(x);
                     }
                     else {
-                        y = Math.max(mBoundsMin * 50, Math.min(y, mBoundsMax * 50));
+                        y = Math.max(mBoundsMin * mPixelsPerUnit, Math.min(y, mBoundsMax * mPixelsPerUnit));
                         mMovingShape.moveTo(y);
                     }
 
@@ -121,13 +134,17 @@ public class DrawView extends View {
                     // Rebuild the grid after the change
                     mGameLogic.rebuildGrid();
 
-                    mMovingShape = null;
-
+                    // Notify the the listeners
                     if(mListener != null) {
-                        mListener.onShapeMoved();
+                        if (mMovingShape.getCol() != mPreviousCol || mMovingShape.getRow() != mPreviousRow)
+                            mListener.onShapeMoved();
+
                         if (mGameLogic.isSolved())
                             mListener.onPuzzleSolved();
                     }
+
+                    // Throw away the current moving shape
+                    mMovingShape = null;
                 }
                 break;
         }
