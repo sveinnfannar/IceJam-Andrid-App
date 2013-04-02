@@ -31,6 +31,7 @@ public class PlayActivity extends Activity {
     private static String challengeFile = new String();
     private static String levelID = new String();
     private String levelSetup = new String();
+    private static boolean chkNextLevel = false;
 
     DrawView mDrawView;
     TextView mLevelView;
@@ -118,9 +119,9 @@ public class PlayActivity extends Activity {
 
 
                 /* --- BEGIN Pre-Load the next level (for the continue button in the MainActivity): --- */
-                Integer nextLevelIDInt = Integer.parseInt(levelID) + 1;
+                Integer nextLevelIDInt = Integer.parseInt(levelID) + 1;  // TODO: What if it is the last level of the challenge?? (level = 1, challenge = nextChallenge)
                 String nextLevelID = nextLevelIDInt.toString();
-                String nextLevelSetup = "";
+                String nextLevelSetup = null;
 
                 //Read the levels file:
                 try {
@@ -134,12 +135,16 @@ public class PlayActivity extends Activity {
                     e.printStackTrace();
                 }
 
-                //Send the level ID and setup to the PlayActivity through Preferences file:
-                SharedPreferences preferences = getSharedPreferences("GamePrefs", MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("LevelID", nextLevelID);
-                editor.putString("LevelSetup", nextLevelSetup);
-                editor.commit();
+                if( nextLevelSetup != null ) {  // it is NOT the last level of the challenge...
+                    //Send the level ID and setup to the PlayActivity through Preferences file:
+                    SharedPreferences preferences = getSharedPreferences("GamePrefs", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("LevelID", nextLevelID);
+                    editor.putString("LevelSetup", nextLevelSetup);
+                    editor.commit();
+
+                    chkNextLevel = true;
+                }
                 /* --- END Pre-Load the next level (for the continue button in the MainActivity). --- */
 
 
@@ -203,9 +208,16 @@ public class PlayActivity extends Activity {
                         //Close the dialog:
                         //dialog.dismiss();
 
-                        //Start the new level:
-                        Intent intent = new Intent(context, PlayActivity.class);
-                        startActivity(intent);  // start the game...
+                        if( !chkNextLevel ) {  // it is the last level of the challenge!
+                            //Start the challenges activity:
+                            Intent intent = new Intent(context, ChallengesActivity.class);
+                            startActivity(intent);  // start the challenges activity...
+                        }
+                        else {  // chkNextLevel == true  // it is NOT the last level of the challenge...
+                            //Start the new level:
+                            Intent intent = new Intent(context, PlayActivity.class);
+                            startActivity(intent);  // start the game...
+                        }
                     }
                 });
 
