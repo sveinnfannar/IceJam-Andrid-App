@@ -2,10 +2,7 @@ package net.paolorovelli.IceJam;
 
 import android.app.ActionBar;
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
+import android.graphics.*;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,6 +12,7 @@ import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * DrawViews.
@@ -37,14 +35,17 @@ public class DrawView extends View {
 
     private int mOffsetX, mOffsetY;
     private int mPreviousCol, mPreviousRow;
+    private int mBoundsMin, mBoundsMax;
     private int mPixelsPerUnit;
+
+    private Bitmap mIceTexture;
 
 
     public DrawView(Context context, AttributeSet attrs) {
         super(context, attrs);
         setBackgroundColor(Color.TRANSPARENT);
-
         mPixelsPerUnit = getWidth() / DEFAULT_NUM_COLS;
+        mIceTexture = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.ice);
     }
 
     public void setGridSize(int cols, int rows) {
@@ -52,6 +53,7 @@ public class DrawView extends View {
         mPixelsPerUnit = getWidth() / cols;
         for (Shape shape : mShapes) {
             shape.setPixelsPerUnit(mPixelsPerUnit);
+            shape.setBitmap(bitmapForShape(shape));
         }
     }
 
@@ -61,6 +63,7 @@ public class DrawView extends View {
 
     public void addShape(Shape shape) {
         shape.setPixelsPerUnit(getWidth() / mGameLogic.getNumCols());
+        shape.setBitmap(bitmapForShape(shape));
         mGameLogic.addShape(shape);
         mShapes = mGameLogic.getShapes();
     }
@@ -69,16 +72,23 @@ public class DrawView extends View {
         mPaint.setColor(Color.argb(128, 128, 128, 128));
         canvas.drawRect(0, 0, mGameLogic.getNumCols() * mPixelsPerUnit, mGameLogic.getNumRows() * mPixelsPerUnit, mPaint);
 
+        mPaint.setColor(Color.WHITE);
         for( Shape shape : mShapes ) {
             // Draw rect
-            mPaint.setColor(shape.getColor());
-            mPaint.setStrokeWidth(0);
-            canvas.drawRect(shape.getRect(), mPaint);
+            Rect rect = shape.getRect();
+            Bitmap bitmap = shape.getBitmap();
+
+            if (shape.isGoalShape()) {
+                Paint paint = new Paint(Color.RED);
+                ColorFilter filter = new LightingColorFilter(Color.RED, 1);
+                paint.setColorFilter(filter);
+                canvas.drawBitmap(bitmap, rect.left, rect.top, paint);
+            }
+            else {
+                canvas.drawBitmap(bitmap, rect.left, rect.top, mPaint);
+            }
         }
     }
-
-    private int mBoundsMin;
-    private int mBoundsMax;
 
     public boolean onTouchEvent( MotionEvent motionEvent ) {
         int x = (int) motionEvent.getX();
@@ -161,5 +171,34 @@ public class DrawView extends View {
                 return shape;
 
         return null;
+    }
+
+    private Bitmap bitmapForShape(Shape shape) {
+        Random r = new Random();
+        Bitmap ice = Bitmap.createBitmap(mIceTexture, r.nextInt(mIceTexture.getWidth() - shape.getWidth()),
+                r.nextInt(mIceTexture.getHeight() - shape.getHeight()),
+                shape.getWidth(), shape.getHeight());
+        return roundedCornerBitmap(ice);
+    }
+
+    public static Bitmap roundedCornerBitmap(Bitmap bitmap) {
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+
+        final int color = 0xff424242;
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(0, 0, bitmap.getWidth() - 2, bitmap.getHeight() - 2);
+        final RectF rectF = new RectF(rect);
+        final float roundPx = 12;
+
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(color);
+        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(bitmap, rect, rect, paint);
+
+        return output;
     }
 }

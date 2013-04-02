@@ -1,5 +1,7 @@
 package net.paolorovelli.IceJam;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Rect;
 
@@ -23,7 +25,7 @@ public class Shape {
     private Rect mRect;
     private int mCol, mRow;
     private int mLength;
-    private int mColor; // TODO: Add a texture instead of color
+    private Bitmap mBitmap;
 
     /**
      * Class constructor.
@@ -107,17 +109,6 @@ public class Shape {
         return mRect;
     }
 
-
-    /**
-     * Get color.
-     *
-     * @return
-     */
-    public int getColor() {
-        return mColor;
-    }
-
-
     /**
      * Get orientation.
      *
@@ -190,16 +181,18 @@ public class Shape {
 
     public void setIsGoalShape(boolean isGoalShape) {
         mIsGoalShape = isGoalShape;
-
-        if (isGoalShape)
-            mColor = Color.rgb(172, 209, 233);
-        else
-            mColor = Color.rgb(123, 74, 18);
     }
-
 
     public boolean isGoalShape() {
         return mIsGoalShape;
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        mBitmap = bitmap;
+    }
+
+    public Bitmap getBitmap() {
+        return mBitmap;
     }
 
 
