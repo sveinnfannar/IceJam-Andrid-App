@@ -70,7 +70,9 @@ public class DrawView extends View {
 
     protected void onDraw(Canvas canvas) {
         mPaint.setColor(Color.argb(128, 128, 128, 128));
-        canvas.drawRect(0, 0, mGameLogic.getNumCols() * mPixelsPerUnit, mGameLogic.getNumRows() * mPixelsPerUnit, mPaint);
+        mPaint.setAntiAlias(true);
+        RectF backgroundRect = new RectF(0, 0, mGameLogic.getNumCols() * mPixelsPerUnit, mGameLogic.getNumRows() * mPixelsPerUnit);
+        canvas.drawRoundRect(backgroundRect, 12, 12, mPaint);
 
         mPaint.setColor(Color.WHITE);
         for( Shape shape : mShapes ) {
@@ -78,6 +80,9 @@ public class DrawView extends View {
             Rect rect = shape.getRect();
             Bitmap bitmap = shape.getBitmap();
 
+            RectF borderRect = new RectF(rect);
+            borderRect.inset(1, 1);
+            canvas.drawRoundRect(borderRect, 12, 12, mPaint);
             if (shape.isGoalShape()) {
                 Paint paint = new Paint(Color.RED);
                 ColorFilter filter = new LightingColorFilter(Color.RED, 1);
@@ -187,7 +192,7 @@ public class DrawView extends View {
 
         final int color = 0xff424242;
         final Paint paint = new Paint();
-        final Rect rect = new Rect(0, 0, bitmap.getWidth() - 2, bitmap.getHeight() - 2);
+        final Rect rect = new Rect(2, 2, bitmap.getWidth() - 3, bitmap.getHeight() - 3);
         final RectF rectF = new RectF(rect);
         final float roundPx = 12;
 
