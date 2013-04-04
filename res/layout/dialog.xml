@@ -31,6 +31,20 @@
               android:layout_height="0dp"
               android:textSize="12dp" />
 
+    <TextView android:id="@+id/dialogTime"
+              android:layout_weight="1"
+              android:text="@string/dialog_time"
+              android:layout_width="wrap_content"
+              android:layout_height="0dp"
+              android:textSize="12dp" />
+
+    <TextView android:id="@+id/dialogTimeBest"
+              android:layout_weight="1"
+              android:text="@string/dialog_time_best"
+              android:layout_width="wrap_content"
+              android:layout_height="0dp"
+              android:textSize="12dp" />
+
     <TextView android:id="@+id/dialogNTimes"
               android:layout_weight="1"
               android:text="@string/dialog_ntimes"

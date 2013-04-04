@@ -25,6 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_TABLE_ATTR_LEVEL = "level";
     private static final String DATABASE_TABLE_ATTR_SOLVED = "solved";
     private static final String DATABASE_TABLE_ATTR_MOVES = "moves";
+    private static final String DATABASE_TABLE_ATTR_TIME = "time";
 
 
     /**
@@ -47,7 +48,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         DATABASE_TABLE_ATTR_CHALLENGE + " TEXT, " +
                         DATABASE_TABLE_ATTR_LEVEL + " TEXT, " +
                         DATABASE_TABLE_ATTR_SOLVED + " INTEGER, " +
-                        DATABASE_TABLE_ATTR_MOVES + " INTEGER);";
+                        DATABASE_TABLE_ATTR_MOVES + " INTEGER, " +
+                        DATABASE_TABLE_ATTR_TIME + " TEXT);";
 
         db.execSQL( create );
     }
@@ -94,6 +96,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     /**
+     * Get if a level is solved or not.
+     *
+     * @param challenge  the challenge to which the level belong.
+     * @param level  the level solved.
+     * @return the number of moves needed to solve the puzzle, zero if never solved.
+     */
+    public String isSolvedInTime(String challenge, String level) {
+        //SQL query:
+        String query = "SELECT MIN(" + DATABASE_TABLE_ATTR_TIME + ") AS " + DATABASE_TABLE_ATTR_TIME +
+                " FROM " + DATABASE_TABLE_NAME +
+                " WHERE " + DATABASE_TABLE_ATTR_CHALLENGE + "=? AND " + DATABASE_TABLE_ATTR_LEVEL + "=?";
+
+        //Execute the query:
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, new String [] {challenge, level});
+
+        //Read the result of the query:
+        String time = "-";
+        if( cursor.moveToFirst() ) {  // moves the Cursor to the first row in the result set...
+            time = cursor.getString( cursor.getColumnIndex(DATABASE_TABLE_ATTR_TIME) );
+
+            //Debug:
+            //System.out.println("[SQLite] time: " + time);
+        }
+
+        //Close the Cursor:
+        cursor.close();
+
+        return time;
+    }
+
+
+    /**
      * Get the number of times a puzzle has been solved.
      *
      * @param challenge  the challenge to which the level belong.
@@ -132,8 +167,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param challenge  the challenge to which the level belong.
      * @param level  the level solved.
      * @param moves  the number of moves needed to solve the level.
+     * @param time  the time needed to solve the puzzle.
      */
-    public void solved(String challenge, String level, int moves) {
+    public void solved(String challenge, String level, int moves, String time) {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -141,6 +177,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("level", level);
         values.put("solved", 1);
         values.put("moves", moves);
+        values.put("time", time);
 
         db.insertOrThrow(DATABASE_TABLE_NAME, null, values);
     }
