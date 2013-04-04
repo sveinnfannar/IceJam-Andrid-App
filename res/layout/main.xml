@@ -41,6 +41,10 @@
             android:text="@string/main_play"
             android:onClick="buttonClick"
             android:soundEffectsEnabled="true"
+            android:background="@drawable/button"
+            android:textColor="#FFFFFF"
+            android:textSize="25dp"
+            android:textStyle="bold"
             />
 
     <Button
@@ -51,6 +55,11 @@
             android:text="@string/main_challenges"
             android:onClick="buttonClick"
             android:soundEffectsEnabled="true"
+            android:background="@drawable/button"
+            android:textColor="#FFFFFF"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
             />
 
     <Button
@@ -61,6 +70,11 @@
             android:text="@string/main_settings"
             android:onClick="buttonClick"
             android:soundEffectsEnabled="true"
+            android:background="@drawable/button"
+            android:textColor="#FFFFFF"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
             />
 </LinearLayout>
 

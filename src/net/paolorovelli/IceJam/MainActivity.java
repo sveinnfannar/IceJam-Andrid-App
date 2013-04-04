@@ -2,6 +2,9 @@ package net.paolorovelli.IceJam;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.View;
@@ -26,6 +29,8 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        Button button = (Button) findViewById(R.id.buttonPlay);
+        //button.setBackgroundColor(Color.TRANSPARENT);
 
         //Instantiate the SQLite DB object:
         if( db.isEmpty() ) {  // the database is empty!
