@@ -212,6 +212,26 @@ public class GameLogic {
     }
 
 
+    /***
+     * Column the shape should be in to win
+     *
+     * @return
+     */
+    public int getGoalCol() {
+        return mNumCols - 1;
+    }
+
+
+    /**
+     * Row the shape should be in to win
+     *
+     * @return
+     */
+    public int getGoalRow() {
+        return mNumRows / 2;
+    }
+
+
     /**
      * Returns a string representation of the puzzle state.
      *

@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.content.Context;
 import android.graphics.*;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,8 +72,16 @@ public class DrawView extends View {
     protected void onDraw(Canvas canvas) {
         mPaint.setColor(Color.argb(128, 128, 128, 128));
         mPaint.setAntiAlias(true);
+
+        // Draw background
         RectF backgroundRect = new RectF(0, 0, mGameLogic.getNumCols() * mPixelsPerUnit, mGameLogic.getNumRows() * mPixelsPerUnit);
         canvas.drawRoundRect(backgroundRect, 12, 12, mPaint);
+
+        // Draw goal field
+        mPaint.setColor(Color.rgb(120, 220, 120));
+        int x = mGameLogic.getGoalCol() * mPixelsPerUnit;
+        int y = mGameLogic.getGoalRow() * mPixelsPerUnit;
+        canvas.drawRoundRect(new RectF(x, y, x + mPixelsPerUnit, y + mPixelsPerUnit), 12, 12, mPaint);
 
         mPaint.setColor(Color.WHITE);
         for( Shape shape : mShapes ) {
@@ -181,8 +190,8 @@ public class DrawView extends View {
     private Bitmap bitmapForShape(Shape shape) {
         Random r = new Random();
         Bitmap ice = Bitmap.createBitmap(mIceTexture, r.nextInt(mIceTexture.getWidth() - shape.getWidth()),
-                r.nextInt(mIceTexture.getHeight() - shape.getHeight()),
-                shape.getWidth(), shape.getHeight());
+                                         r.nextInt(mIceTexture.getHeight() - shape.getHeight()),
+                                         shape.getWidth(), shape.getHeight());
         return roundedCornerBitmap(ice);
     }
 
