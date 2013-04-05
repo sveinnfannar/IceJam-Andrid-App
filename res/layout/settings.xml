@@ -4,6 +4,10 @@
               android:orientation="vertical"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
+              android:paddingTop="5dp"
+              android:paddingBottom="25dp"
+              android:paddingLeft="25dp"
+              android:paddingRight="25dp"
               android:background="@drawable/icebergbackground">
 
     <TextView android:layout_width="fill_parent"
@@ -16,11 +20,18 @@
               android:textStyle="bold"
               android:gravity="center_horizontal" />
 
-    <TextView
+    <Button
+            android:id="@+id/buttonClearHistory"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Under Construction... :)"
-            android:textColor="#002060"
+            android:text="@string/settings_clear_history"
+            android:onClick="buttonClick"
+            android:soundEffectsEnabled="true"
+            android:background="@drawable/button"
+            android:textColor="#FFFFFF"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
             />
 
 </LinearLayout>

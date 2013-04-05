@@ -113,7 +113,7 @@ public class LevelsActivity extends Activity {
             //System.out.println("[SQLite] Solved: " + db.isSolved(this.challenge, this.cells.get(position)));
 
             //Set background image size:
-            newView.setWidth(64);
+            newView.setWidth(128);
             newView.setHeight(128);
 
             return newView;

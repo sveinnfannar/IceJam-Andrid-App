@@ -7,6 +7,10 @@
     <string name="challenges_title">Select Challenge</string>
     <string name="level_title">Select Level</string>
     <string name="settings_title">Settings</string>
+    <string name="settings_clear_history">Clear history</string>
+    <string name="settings_dialog_text">Are you sure you want to delete all the records history?</string>
+    <string name="settings_dialog_yes">YES</string>
+    <string name="settings_dialog_no">NO</string>
     <string name="game_level">Level</string>
     <string name="game_moves">Moves:</string>
     <string name="game_best">Best:</string>
