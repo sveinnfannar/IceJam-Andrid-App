@@ -39,23 +39,21 @@ public class DrawView extends View {
     private int mBoundsMin, mBoundsMax;
     private int mPixelsPerUnit;
 
-    private Bitmap mIceTexture;
+    private static Bitmap mIceTexture;
 
 
     public DrawView(Context context, AttributeSet attrs) {
         super(context, attrs);
         setBackgroundColor(Color.TRANSPARENT);
-        mPixelsPerUnit = getWidth() / DEFAULT_NUM_COLS;
-        mIceTexture = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.ice);
+        mPixelsPerUnit = Math.min(getWidth() / DEFAULT_NUM_COLS, getHeight() / DEFAULT_NUM_ROWS);
+
+        if (mIceTexture == null)
+            mIceTexture = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.ice);
     }
 
     public void setGridSize(int cols, int rows) {
         mGameLogic.setGridSize(cols, rows);
-        mPixelsPerUnit = getWidth() / cols;
-        for (Shape shape : mShapes) {
-            shape.setPixelsPerUnit(mPixelsPerUnit);
-            shape.setBitmap(bitmapForShape(shape));
-        }
+        calculateViewport();
     }
 
     public void setCustomEventHandler(DrawEventHandler listener) {
@@ -179,6 +177,14 @@ public class DrawView extends View {
         return true;
     }
 
+    public void calculateViewport() {
+        mPixelsPerUnit = Math.min(getWidth() / mGameLogic.getNumCols(), getHeight() / mGameLogic.getNumRows());
+        for (Shape shape : mShapes) {
+            shape.setPixelsPerUnit(mPixelsPerUnit);
+            shape.setBitmap(bitmapForShape(shape));
+        }
+    }
+
     private Shape shapeLocatedOn(int x, int y) {
         for (Shape shape : mShapes)
             if (shape.getRect().contains(x, y))
@@ -212,6 +218,7 @@ public class DrawView extends View {
 
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         canvas.drawBitmap(bitmap, rect, rect, paint);
+        bitmap.recycle();
 
         return output;
     }

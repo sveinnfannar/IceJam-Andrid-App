@@ -3,18 +3,18 @@
               android:orientation="vertical"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
-              android:background="@drawable/icebergbackground">
+              android:background="@drawable/icebergbackground" android:gravity="bottom|fill_vertical">
 
     <TextView android:id="@+id/levelsTitle"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
-              android:layout_marginTop="10dp"
+              android:layout_marginTop="20sp"
               android:layout_marginBottom="10dp"
               android:text="@string/level_title"
-              android:textColor="#002060"
-              android:textSize="20dp"
-              android:textStyle="bold"
-              android:gravity="center_horizontal" />
+              android:textColor="#000000"
+              android:textSize="40sp"
+              android:textStyle="bold|normal"
+              android:gravity="center_horizontal" android:textIsSelectable="false"/>
 
     <GridView android:id="@+id/levelsView"
               android:layout_width="fill_parent"
@@ -24,5 +24,6 @@
               android:verticalSpacing="16dp"
               android:horizontalSpacing="16dp"
               android:stretchMode="columnWidth"
-              android:gravity="center" />
+              android:gravity="center" android:paddingLeft="10sp" android:paddingTop="10sp"
+              android:longClickable="true"/>
 </LinearLayout>

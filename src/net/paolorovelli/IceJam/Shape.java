@@ -188,6 +188,8 @@ public class Shape {
     }
 
     public void setBitmap(Bitmap bitmap) {
+        if (mBitmap != null)
+            mBitmap.recycle();
         mBitmap = bitmap;
     }
 
