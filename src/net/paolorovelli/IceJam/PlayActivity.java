@@ -257,6 +257,7 @@ public class PlayActivity extends Activity {
                         //dialog.dismiss();
 
                         Intent intent = new Intent(context, MainActivity.class);
+                        finish();
                         startActivity(intent);  // start the home view...
                     }
                 });
@@ -278,6 +279,7 @@ public class PlayActivity extends Activity {
                     editor.commit();
 
                     Intent intent = new Intent(context, PlayActivity.class);
+                    finish();
                     startActivity(intent);  // start the home view...
                     }
                 });
@@ -294,6 +296,7 @@ public class PlayActivity extends Activity {
                         if( !chkNextLevel ) {  // it is the last level of the challenge!
                             //Start the challenges activity:
                             Intent intent = new Intent(context, ChallengesActivity.class);
+                            finish();
                             startActivity(intent);  // start the challenges activity...
                         }
                         else {  // chkNextLevel == true  // it is NOT the last level of the challenge...
@@ -301,6 +304,7 @@ public class PlayActivity extends Activity {
 
                             //Start the new level:
                             Intent intent = new Intent(context, PlayActivity.class);
+                            finish();
                             startActivity(intent);  // start the game...
                         }
                     }
