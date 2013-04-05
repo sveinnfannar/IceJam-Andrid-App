@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -197,6 +198,11 @@ public class PlayActivity extends Activity {
                 moves = Integer.parseInt( mMovesView.getText().toString() );
                 moves++;
                 mMovesView.setText( moves.toString() );
+
+                // Get instance of Vibrator from current Context
+                Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                v.vibrate(35);
+
             }
 
             @Override
