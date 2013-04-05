@@ -196,6 +196,10 @@ public class PlayActivity extends Activity {
 
             @Override
             public void onPuzzleSolved() {
+                //Stop the timer:
+                timer.cancel();
+
+
                 /* --- BEGIN Store in SQLite DB: --- */
                 //Query the SQLite DB to check if the level has been already solved:
                 db.solved(challengeName, levelID, moves, timestamp);
@@ -258,18 +262,18 @@ public class PlayActivity extends Activity {
                 dialogButtonRetry.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //Close the dialog:
-                        //dialog.dismiss();
+                    //Close the dialog:
+                    //dialog.dismiss();
 
-                        //Send the level ID and setup to the PlayActivity through Preferences file:
-                        SharedPreferences preferences = getSharedPreferences("GamePrefs", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = preferences.edit();
-                        editor.putString("LevelID", levelID);
-                        editor.putString("LevelSetup", levelSetup);
-                        editor.commit();
+                    //Send the level ID and setup to the PlayActivity through Preferences file:
+                    SharedPreferences preferences = getSharedPreferences("GamePrefs", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("LevelID", levelID);
+                    editor.putString("LevelSetup", levelSetup);
+                    editor.commit();
 
-                        Intent intent = new Intent(context, PlayActivity.class);
-                        startActivity(intent);  // start the home view...
+                    Intent intent = new Intent(context, PlayActivity.class);
+                    startActivity(intent);  // start the home view...
                     }
                 });
 
