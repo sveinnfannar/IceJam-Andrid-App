@@ -28,22 +28,31 @@
         <Button
                 android:id="@+id/dialogButtonYes"
                 android:layout_weight="1"
-                android:layout_width="128px"
-                android:layout_height="64px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:background="@drawable/button"
                 android:text="@string/settings_dialog_yes"
+                android:textColor="#FFFFFF"
+                android:textSize="25dp"
+                android:textStyle="bold"
                 android:soundEffectsEnabled="true"
                 />
 
         <Button
                 android:id="@+id/dialogButtonNo"
                 android:layout_weight="1"
-                android:layout_width="128px"
-                android:layout_height="64px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:padding="10dp"
                 android:text="@string/settings_dialog_no"
                 android:background="@drawable/button"
-                android:soundEffectsEnabled="true" />
+                android:textColor="#FFFFFF"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:soundEffectsEnabled="true"
+                />
     </LinearLayout>
 </LinearLayout>
