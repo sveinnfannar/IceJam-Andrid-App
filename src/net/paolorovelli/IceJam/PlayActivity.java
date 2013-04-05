@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
@@ -46,6 +47,7 @@ public class PlayActivity extends Activity {
     private TextView mTimerView;
     private TextView mTimerBestView;
     private boolean mTimerStarted;
+    private MediaPlayer mWonSoundfx;
 
     private static Integer moves;
     private static Integer bestNumberOfMoves;
@@ -134,8 +136,12 @@ public class PlayActivity extends Activity {
         mTimerView = (TextView) findViewById( R.id.timer );
         mTimerBestView = (TextView) findViewById( R.id.timerBest );
 
+        // Apply font
         View rootView = findViewById(android.R.id.content);
         applyCustomFont((ViewGroup)rootView, Typeface.createFromAsset(getAssets(), "fonts/viking.ttf"));
+
+        // Load sound effect
+        mWonSoundfx = MediaPlayer.create(getApplicationContext(), R.raw.tada);
 
         //Timer:
         timer = new Timer();
@@ -192,7 +198,6 @@ public class PlayActivity extends Activity {
         mDrawView.setCustomEventHandler(new DrawEventHandler() {
             @Override
             public void onShapeMoved() {
-                //TODO: ...
 
                 //Update the number of moves used until now:
                 moves = Integer.parseInt( mMovesView.getText().toString() );
@@ -202,7 +207,6 @@ public class PlayActivity extends Activity {
                 // Get instance of Vibrator from current Context
                 Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                 v.vibrate(35);
-
             }
 
             @Override
@@ -210,6 +214,8 @@ public class PlayActivity extends Activity {
                 //Stop the timer:
                 timer.cancel();
 
+                // Play the won sound (TADA!!)
+                mWonSoundfx.start();
 
                 /* --- BEGIN Store in SQLite DB: --- */
                 //Query the SQLite DB to check if the level has been already solved:
