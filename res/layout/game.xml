@@ -190,7 +190,7 @@
                     android:layout_height="50dp"
                     android:onClick="buttonClick"
                     android:soundEffectsEnabled="true"
-                    android:background="@drawable/previous"
+                    android:background="@drawable/previousbutton"
                     android:gravity="center_horizontal"
                     android:layout_marginRight="10px"
                     />
@@ -201,7 +201,7 @@
                     android:layout_height="50dp"
                     android:onClick="buttonClick"
                     android:soundEffectsEnabled="true"
-                    android:background="@drawable/next"
+                    android:background="@drawable/nextbutton"
                     android:gravity="center_horizontal"
                     android:layout_marginLeft="10px"/>
 
