@@ -40,6 +40,7 @@ public class DrawView extends View {
     private int mPixelsPerUnit;
 
     private static Bitmap mIceTexture;
+    private static Bitmap[] mCubeTextures = new Bitmap[4];
 
 
     public DrawView(Context context, AttributeSet attrs) {
@@ -49,6 +50,16 @@ public class DrawView extends View {
 
         if (mIceTexture == null)
             mIceTexture = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.ice);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+
+        mCubeTextures[0] = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getContext().getResources(), R.drawable.cube1), mPixelsPerUnit, mPixelsPerUnit, false);
+        mCubeTextures[1] = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getContext().getResources(), R.drawable.cube2), 2*mPixelsPerUnit, mPixelsPerUnit, false);
+        mCubeTextures[2] = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getContext().getResources(), R.drawable.cube3), 3*mPixelsPerUnit, mPixelsPerUnit, false);
+        mCubeTextures[3] = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getContext().getResources(), R.drawable.cube4), 4*mPixelsPerUnit, mPixelsPerUnit, false);
     }
 
     public void setGridSize(int cols, int rows) {
@@ -73,7 +84,7 @@ public class DrawView extends View {
 
         // Draw background
         RectF backgroundRect = new RectF(0, 0, mGameLogic.getNumCols() * mPixelsPerUnit, mGameLogic.getNumRows() * mPixelsPerUnit);
-        canvas.drawRoundRect(backgroundRect, 12, 12, mPaint);
+        canvas.drawRoundRect(backgroundRect, 8, 8, mPaint);
 
         // Draw goal field
         mPaint.setColor(Color.argb(192, 120, 220, 120));
@@ -86,11 +97,14 @@ public class DrawView extends View {
         for( Shape shape : mShapes ) {
             // Draw rect
             Rect rect = shape.getRect();
-            Bitmap bitmap = shape.getBitmap();
+            Bitmap bitmap = mCubeTextures[shape.getLength() - 1];
 
-            RectF borderRect = new RectF(rect);
-            borderRect.inset(1, 1);
-            canvas.drawRoundRect(borderRect, 12, 12, mPaint);
+            if (shape.getOrientation() == Shape.Orientation.Vertical) {
+                Matrix matrix = new Matrix();
+                matrix.postRotate(90);
+                bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix,  false);
+            }
+
             if (shape.isGoalShape()) {
                 Paint paint = new Paint(Color.RED);
                 ColorFilter filter = new LightingColorFilter(Color.RED, 1);
