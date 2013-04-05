@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 /**
  * Main activity of the game.
@@ -30,12 +33,26 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+        View rootView = findViewById(android.R.id.content);
+        applyCustomFont((ViewGroup)rootView, Typeface.createFromAsset(getAssets(), "fonts/viking.ttf"));
+
         //Instantiate the SQLite DB object:
         if( db.isEmpty() ) {  // the database is empty!
             Button continueButton = (Button) findViewById(R.id.buttonPlay);
             continueButton.setEnabled(false);
             continueButton.setText("");
-            continueButton.setBackgroundColor( Color.TRANSPARENT );
+            continueButton.setBackgroundColor(Color.TRANSPARENT);
+        }
+    }
+
+    public static void applyCustomFont(ViewGroup list, Typeface customTypeface) {
+        for (int i = 0; i < list.getChildCount(); i++) {
+            View view = list.getChildAt(i);
+            if (view instanceof ViewGroup) {
+                applyCustomFont((ViewGroup) view, customTypeface);
+            } else if (view instanceof TextView) {
+                ((TextView) view).setTypeface(customTypeface);
+            }
         }
     }
 

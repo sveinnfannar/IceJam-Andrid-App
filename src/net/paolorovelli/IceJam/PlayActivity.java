@@ -6,9 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
@@ -130,6 +132,9 @@ public class PlayActivity extends Activity {
         mBestView = (TextView) findViewById( R.id.numberBest );
         mTimerView = (TextView) findViewById( R.id.timer );
         mTimerBestView = (TextView) findViewById( R.id.timerBest );
+
+        View rootView = findViewById(android.R.id.content);
+        applyCustomFont((ViewGroup)rootView, Typeface.createFromAsset(getAssets(), "fonts/viking.ttf"));
 
         //Timer:
         timer = new Timer();
@@ -306,6 +311,16 @@ public class PlayActivity extends Activity {
         });
     }
 
+    public static void applyCustomFont(ViewGroup list, Typeface customTypeface) {
+        for (int i = 0; i < list.getChildCount(); i++) {
+            View view = list.getChildAt(i);
+            if (view instanceof ViewGroup) {
+                applyCustomFont((ViewGroup) view, customTypeface);
+            } else if (view instanceof TextView) {
+                ((TextView) view).setTypeface(customTypeface);
+            }
+        }
+    }
 
     @Override
     public void onStart() {

@@ -2,13 +2,17 @@ package net.paolorovelli.IceJam;
 
 import android.app.Activity;
 import android.app.ListActivity;
+import android.content.Context;
+import android.graphics.Typeface;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.os.Bundle;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,6 +32,41 @@ public class ChallengesActivity extends ListActivity {
     private List<String> challengesNames = new ArrayList<String>();
     private List<String> challengesFiles = new ArrayList<String>();
 
+
+    private class CustomArrayAdapter extends ArrayAdapter<String> {
+
+        public CustomArrayAdapter(Context context, int textViewResourceId) {
+            super(context, textViewResourceId);
+        }
+
+        public CustomArrayAdapter(Context context, int resource, int textViewResourceId) {
+            super(context, resource, textViewResourceId);
+        }
+
+        public CustomArrayAdapter(Context context, int textViewResourceId, String[] objects) {
+            super(context, textViewResourceId, objects);
+        }
+
+        public CustomArrayAdapter(Context context, int resource, int textViewResourceId, String[] objects) {
+            super(context, resource, textViewResourceId, objects);
+        }
+
+        public CustomArrayAdapter(Context context, int textViewResourceId, List<String> objects) {
+            super(context, textViewResourceId, objects);
+        }
+
+        public CustomArrayAdapter(Context context, int resource, int textViewResourceId, List<String> objects) {
+            super(context, resource, textViewResourceId, objects);
+        }
+
+        @Override
+        public View getView(int position, View view, ViewGroup viewGroup)
+        {
+            View v = super.getView(position, view, viewGroup);
+            ((TextView)v).setTypeface(Typeface.createFromAsset(getAssets(), "fonts/viking.ttf"));
+            return v;
+        }
+    }
 
     /**
      * Class Constructor.
@@ -54,11 +93,26 @@ public class ChallengesActivity extends ListActivity {
             e.printStackTrace();
         }
 
+        View rootView = findViewById(android.R.id.content);
+        applyCustomFont((ViewGroup)rootView, Typeface.createFromAsset(getAssets(), "fonts/viking.ttf"));
+
         // Create ArrayAdapter using the challenges:
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,  this.challengesNames);
+        CustomArrayAdapter adapter = new CustomArrayAdapter(this, android.R.layout.simple_list_item_1,  this.challengesNames);
+
 
         //Set the ArrayAdapter as the ListView's adapter:
-        setListAdapter( adapter );
+        setListAdapter(adapter);
+    }
+
+    public static void applyCustomFont(ViewGroup list, Typeface customTypeface) {
+        for (int i = 0; i < list.getChildCount(); i++) {
+            View view = list.getChildAt(i);
+            if (view instanceof ViewGroup) {
+                applyCustomFont((ViewGroup) view, customTypeface);
+            } else if (view instanceof TextView) {
+                ((TextView) view).setTypeface(customTypeface);
+            }
+        }
     }
 
     @Override

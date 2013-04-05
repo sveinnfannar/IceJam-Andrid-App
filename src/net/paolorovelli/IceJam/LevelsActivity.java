@@ -34,6 +34,17 @@ public class LevelsActivity extends Activity {
     private List<String> levelsSetups = new ArrayList<String>();
 
 
+    public static void applyCustomFont(ViewGroup list, Typeface customTypeface) {
+        for (int i = 0; i < list.getChildCount(); i++) {
+            View view = list.getChildAt(i);
+            if (view instanceof ViewGroup) {
+                applyCustomFont((ViewGroup) view, customTypeface);
+            } else if (view instanceof TextView) {
+                ((TextView) view).setTypeface(customTypeface);
+            }
+        }
+    }
+
     /**
      * CellAdapter.
      *
@@ -139,6 +150,9 @@ public class LevelsActivity extends Activity {
         SharedPreferences preferences = getSharedPreferences("GamePrefs", MODE_PRIVATE);
         this.challengeName = preferences.getString("ChallengeName", "");
         this.challengeFile = preferences.getString("ChallengeFile", "");
+
+        View rootView = findViewById(android.R.id.content);
+        applyCustomFont((ViewGroup)rootView, Typeface.createFromAsset(getAssets(), "fonts/viking.ttf"));
 
         //Debug:
         //System.out.println("[LEVELS] Challenge name: " + this.challengeName);

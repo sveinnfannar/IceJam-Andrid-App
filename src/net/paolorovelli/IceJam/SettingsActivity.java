@@ -4,9 +4,12 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 /**
  * Settings activity of the game.
@@ -22,6 +25,20 @@ public class SettingsActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
+
+        View rootView = findViewById(android.R.id.content);
+        applyCustomFont((ViewGroup)rootView, Typeface.createFromAsset(getAssets(), "fonts/viking.ttf"));
+    }
+
+    public static void applyCustomFont(ViewGroup list, Typeface customTypeface) {
+        for (int i = 0; i < list.getChildCount(); i++) {
+            View view = list.getChildAt(i);
+            if (view instanceof ViewGroup) {
+                applyCustomFont((ViewGroup) view, customTypeface);
+            } else if (view instanceof TextView) {
+                ((TextView) view).setTypeface(customTypeface);
+            }
+        }
     }
 
     public void buttonClick(View view) {
