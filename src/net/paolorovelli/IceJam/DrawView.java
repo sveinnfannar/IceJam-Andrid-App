@@ -76,10 +76,11 @@ public class DrawView extends View {
         canvas.drawRoundRect(backgroundRect, 12, 12, mPaint);
 
         // Draw goal field
-        mPaint.setColor(Color.rgb(120, 220, 120));
+        mPaint.setColor(Color.argb(192, 120, 220, 120));
         int x = mGameLogic.getGoalCol() * mPixelsPerUnit;
         int y = mGameLogic.getGoalRow() * mPixelsPerUnit;
-        canvas.drawRoundRect(new RectF(x, y, x + mPixelsPerUnit, y + mPixelsPerUnit), 12, 12, mPaint);
+        int goalLength = (mGameLogic.getGoalShape().getLength() - 1) * mPixelsPerUnit;
+        canvas.drawRoundRect(new RectF(x - goalLength, y, x + goalLength, y + mPixelsPerUnit), 12, 12, mPaint);
 
         mPaint.setColor(Color.WHITE);
         for( Shape shape : mShapes ) {

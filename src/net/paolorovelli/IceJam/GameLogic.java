@@ -232,6 +232,13 @@ public class GameLogic {
     }
 
 
+    public Shape getGoalShape() {
+        if (mShapes.isEmpty())
+            return null;
+        return mShapes.get(GOAL_SHAPE_ID);
+    }
+
+
     /**
      * Returns a string representation of the puzzle state.
      *
