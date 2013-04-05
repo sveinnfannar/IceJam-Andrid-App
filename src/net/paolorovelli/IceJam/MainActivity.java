@@ -29,13 +29,13 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        Button button = (Button) findViewById(R.id.buttonPlay);
-        //button.setBackgroundColor(Color.TRANSPARENT);
 
         //Instantiate the SQLite DB object:
         if( db.isEmpty() ) {  // the database is empty!
             Button continueButton = (Button) findViewById(R.id.buttonPlay);
             continueButton.setEnabled(false);
+            continueButton.setText("");
+            continueButton.setBackgroundColor( Color.TRANSPARENT );
         }
     }
 
@@ -51,8 +51,8 @@ public class MainActivity extends Activity {
 
         switch( id ) {
             case R.id.buttonPlay:
-                    intent = new Intent(this, PlayActivity.class);
-                    startActivity( intent );
+                intent = new Intent(this, PlayActivity.class);
+                startActivity( intent );
                 break;
 
             case R.id.buttonChallenges:
@@ -61,8 +61,8 @@ public class MainActivity extends Activity {
                 break;
 
             case R.id.buttonSettings:
-                    intent = new Intent(this, SettingsActivity.class);
-                    startActivity( intent );
+                intent = new Intent(this, SettingsActivity.class);
+                startActivity( intent );
                 break;
 
         }

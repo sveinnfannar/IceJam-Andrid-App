@@ -210,4 +210,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return true;
     }
+
+
+    /**
+     * Delete all the records.
+     *
+     * @return true if the database is empty (no puzzles solved), false otherwise.
+     */
+    public void clearRecords() {
+        //SQL query:
+        String query = "DELETE FROM " + DATABASE_TABLE_NAME;
+
+        //Execute the query:
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL( query );
+
+        //Debug:
+        System.out.println("[SQLite] Records deleted!");
+    }
 }
