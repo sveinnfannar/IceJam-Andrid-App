@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -35,12 +36,14 @@ public class PlayActivity extends Activity {
     private static String levelSetup = new String();
     private static boolean chkNextLevel = false;
 
-    DrawView mDrawView;
-    TextView mLevelView;
-    TextView mMovesView;
-    TextView mBestView;
-    TextView mTimerView;
-    TextView mTimerBestView;
+    private DrawView mDrawView;
+    private TextView mLevelView;
+    private TextView mMovesView;
+    private TextView mBestView;
+    private TextView mTimerView;
+    private TextView mTimerBestView;
+    private boolean mTimerStarted;
+
     private static Integer moves;
     private static Integer bestNumberOfMoves;
     private static String bestTime;
@@ -80,6 +83,36 @@ public class PlayActivity extends Activity {
         }
     };
 
+    private boolean loadLevel(int offset) {
+        Integer nextLevelIDInt = Integer.parseInt(levelID) + offset;
+        String nextLevelID = nextLevelIDInt.toString();
+        String nextLevelSetup = null;
+
+        //Read the levels file:
+        try {
+            //Open the assets file:
+            InputStream file = getAssets().open( challengeFile );
+
+            //Parse the challenges:
+            nextLevelSetup = parser.parseTheLevel(file, nextLevelID);
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+        }
+
+        if( nextLevelSetup != null ) {  // it is NOT the last level of the challenge...
+            //Send the level ID and setup to the PlayActivity through Preferences file:
+            SharedPreferences preferences = getSharedPreferences("GamePrefs", MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("LevelID", nextLevelID);
+            editor.putString("LevelSetup", nextLevelSetup);
+            editor.commit();
+
+            chkNextLevel = true;
+        }
+
+        return chkNextLevel;
+    }
 
     /**
      * On create method.
@@ -114,7 +147,7 @@ public class PlayActivity extends Activity {
         this.levelSetup = preferences.getString("LevelSetup", "");
 
         //Update Level TextView:
-        mLevelView.setText( this.levelID );
+        mLevelView.setText(this.levelID);
 
         //Instantiate the SQLite DB object:
         db = new DatabaseHelper( getApplicationContext() );
@@ -170,32 +203,7 @@ public class PlayActivity extends Activity {
 
 
                 /* --- BEGIN Pre-Load the next level (for the continue button in the MainActivity): --- */
-                Integer nextLevelIDInt = Integer.parseInt(levelID) + 1;
-                String nextLevelID = nextLevelIDInt.toString();
-                String nextLevelSetup = null;
-
-                //Read the levels file:
-                try {
-                    //Open the assets file:
-                    InputStream file = getAssets().open( challengeFile );
-
-                    //Parse the challenges:
-                    nextLevelSetup = parser.parseTheLevel(file, nextLevelID);
-                }
-                catch(IOException e) {
-                    e.printStackTrace();
-                }
-
-                if( nextLevelSetup != null ) {  // it is NOT the last level of the challenge...
-                    //Send the level ID and setup to the PlayActivity through Preferences file:
-                    SharedPreferences preferences = getSharedPreferences("GamePrefs", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString("LevelID", nextLevelID);
-                    editor.putString("LevelSetup", nextLevelSetup);
-                    editor.commit();
-
-                    chkNextLevel = true;
-                }
+                chkNextLevel = loadLevel(1);
                 /* --- END Pre-Load the next level (for the continue button in the MainActivity). --- */
 
 
@@ -300,21 +308,45 @@ public class PlayActivity extends Activity {
         super.onStart();
 
         //Timer:
-        timer.schedule(new TimerTask() {
+        if (!mTimerStarted) {
+            timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 TimerMethod();
             }
 
         }, 0, 1000);
+            mTimerStarted = true;
+        }
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mDrawView.calculateViewport();
-    }
+    public void buttonClick(View view) {
+        int id = view.getId();
+        boolean chkNextLevel = false;
 
+        switch(id) {
+            case R.id.buttonNext:
+                chkNextLevel = loadLevel(1);
+                break;
+
+            case R.id.buttonPrevious:
+                chkNextLevel = loadLevel(-1);
+                break;
+        }
+
+        if( !chkNextLevel ) {  // it is the last level of the challenge!
+            //Start the challenges activity:
+            Intent intent = new Intent(context, ChallengesActivity.class);
+            finish();
+            startActivity(intent);  // start the challenges activity...
+        }
+        else {  // chkNextLevel == true  // it is NOT the last level of the challenge...
+            //Start the new level:
+            Intent intent = new Intent(context, PlayActivity.class);
+            finish();
+            startActivity(intent);  // start the game...
+        }
+    }
 
     /**
      * Timer method.

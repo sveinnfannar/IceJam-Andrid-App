@@ -12,6 +12,8 @@
     <string name="game_best">Best:</string>
     <string name="game_timer">Time:</string>
     <string name="game_timer_best">Best:</string>
+    <string name="game_next">Next</string>
+    <string name="game_previous">Previous</string>
     <string name="dialog_moves">Number of moves:</string>
     <string name="dialog_best">Previous record:</string>
     <string name="dialog_time">Time:</string>

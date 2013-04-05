@@ -208,7 +208,7 @@ public class DrawView extends View {
 
         final int color = 0xff424242;
         final Paint paint = new Paint();
-        final Rect rect = new Rect(2, 2, bitmap.getWidth() - 3, bitmap.getHeight() - 3);
+        final Rect rect = new Rect(2, 2, bitmap.getWidth() - 4, bitmap.getHeight() - 4);
         final RectF rectF = new RectF(rect);
         final float roundPx = 12;
 
