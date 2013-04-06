@@ -90,6 +90,11 @@ public class PlayActivity extends Activity {
     };
 
     private boolean loadLevel(int offset) {
+        if (Integer.parseInt(levelID) + offset >= 10) {
+            chkNextLevel = false;
+            return chkNextLevel;
+        }
+
         Integer nextLevelIDInt = Integer.parseInt(levelID) + offset;
         String nextLevelID = nextLevelIDInt.toString();
         String nextLevelSetup = null;
