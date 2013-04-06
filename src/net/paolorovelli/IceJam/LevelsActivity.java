@@ -32,6 +32,7 @@ public class LevelsActivity extends Activity {
     private String challengeFile = new String();
     private List<String> levelsID = new ArrayList<String>();
     private List<String> levelsSetups = new ArrayList<String>();
+    private List<Integer> levelsSizes = new ArrayList<Integer>();
 
 
     public static void applyCustomFont(ViewGroup list, Typeface customTypeface) {
@@ -164,7 +165,7 @@ public class LevelsActivity extends Activity {
             InputStream file = getAssets().open( this.challengeFile );
 
             //Parse the challenges:
-            this.parser.parseLevels(file, this.levelsID, this.levelsSetups);
+            this.parser.parseLevels(file, this.levelsID, this.levelsSetups, this.levelsSizes);
         }
         catch(IOException e) {
             e.printStackTrace();
@@ -188,6 +189,7 @@ public class LevelsActivity extends Activity {
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("LevelID", LevelsActivity.this.levelsID.get(position));
                 editor.putString("LevelSetup", LevelsActivity.this.levelsSetups.get(position));
+                editor.putInt("LevelSize", LevelsActivity.this.levelsSizes.get(position));
                 editor.commit();
 
                 startActivity(intent);  // start the game...

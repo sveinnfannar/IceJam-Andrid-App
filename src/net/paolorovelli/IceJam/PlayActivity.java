@@ -5,12 +5,10 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -19,6 +17,8 @@ import android.view.View.OnClickListener;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -38,6 +38,7 @@ public class PlayActivity extends Activity {
     private static String challengeFile = new String();
     private static String levelID = new String();
     private static String levelSetup = new String();
+    private static Integer levelSize = 6;
     private static boolean chkNextLevel = false;
 
     private DrawView mDrawView;
@@ -92,6 +93,8 @@ public class PlayActivity extends Activity {
         Integer nextLevelIDInt = Integer.parseInt(levelID) + offset;
         String nextLevelID = nextLevelIDInt.toString();
         String nextLevelSetup = null;
+        List<Integer> sizes = new ArrayList<Integer>();
+        Integer nextLevelSize = 6;
 
         //Read the levels file:
         try {
@@ -99,7 +102,8 @@ public class PlayActivity extends Activity {
             InputStream file = getAssets().open( challengeFile );
 
             //Parse the challenges:
-            nextLevelSetup = parser.parseTheLevel(file, nextLevelID);
+            nextLevelSetup = parser.parseTheLevel(file, nextLevelID, sizes);
+            nextLevelSize = sizes.get(0);
         }
         catch(IOException e) {
             e.printStackTrace();
@@ -111,6 +115,7 @@ public class PlayActivity extends Activity {
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString("LevelID", nextLevelID);
             editor.putString("LevelSetup", nextLevelSetup);
+            editor.putInt("LevelSize", nextLevelSize);
             editor.commit();
 
             chkNextLevel = true;
@@ -157,6 +162,7 @@ public class PlayActivity extends Activity {
         this.challengeFile = preferences.getString("ChallengeFile", "");
         this.levelID = preferences.getString("LevelID", "");
         this.levelSetup = preferences.getString("LevelSetup", "");
+        this.levelSize = preferences.getInt("LevelSize", 6);
 
         //Update Level TextView:
         mLevelView.setText(this.levelID);
@@ -185,8 +191,9 @@ public class PlayActivity extends Activity {
         mDrawView.post(new Runnable() {
             @Override
             public void run() {
+                System.out.println("[PLAY] Size: " + levelSize);
                 //Set the grid size:
-                mDrawView.setGridSize(6, 6);
+                mDrawView.setGridSize(levelSize, levelSize);
 
                 // Add the shapes defined in the xml file
                 for (String shapeStr : puzzleStr.split(", ")) {
@@ -288,6 +295,7 @@ public class PlayActivity extends Activity {
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString("LevelID", levelID);
                     editor.putString("LevelSetup", levelSetup);
+                    editor.putInt("LevelSize", levelSize);
                     editor.commit();
 
                     Intent intent = new Intent(context, PlayActivity.class);
@@ -345,7 +353,7 @@ public class PlayActivity extends Activity {
         super.onStart();
 
         //Timer:
-        if (!mTimerStarted) {
+        if ( !mTimerStarted ) {
             timer.schedule(new TimerTask() {
             @Override
             public void run() {

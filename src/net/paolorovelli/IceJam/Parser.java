@@ -72,7 +72,7 @@ public class Parser {
      * @param setups
      * @throws IOException
      */
-    public void parseLevels(InputStream is, List<String> names, List<String> setups) throws IOException {
+    public void parseLevels(InputStream is, List<String> names, List<String> setups, List<Integer> sizes) throws IOException {
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -91,10 +91,12 @@ public class Parser {
                     //Read the elements:
                     names.add(eElement.getAttribute("id"));
                     setups.add( eElement.getElementsByTagName("setup").item(0).getTextContent() );
+                    sizes.add( Integer.parseInt( eElement.getAttribute("size") ) );
 
                     //Debug:
                     //System.out.println("[PARSER] Puzzle level: " + eElement.getAttribute("id"));
                     //System.out.println("[PARSER] Puzzle setup: " + eElement.getElementsByTagName("setup").item(0).getTextContent());
+                    //System.out.println("[PARSER] Puzzle size: " + eElement.getAttribute("size"));
                 }
             }
         }
@@ -112,7 +114,7 @@ public class Parser {
      * @return the setup.
      * @throws IOException
      */
-    public String parseTheLevel(InputStream is, String level) throws IOException {
+    public String parseTheLevel(InputStream is, String level, List<Integer> sizes) throws IOException {
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -132,6 +134,9 @@ public class Parser {
                         //Debug:
                         //System.out.println("[PARSER] Puzzle level: " + eElement.getAttribute("id"));
                         //System.out.println("[PARSER] Puzzle setup: " + eElement.getElementsByTagName("setup").item(0).getTextContent());
+                        //System.out.println("[PARSER] Puzzle size: " + eElement.getAttribute("size"));
+
+                        sizes.add( Integer.parseInt( eElement.getAttribute("size") ) );
 
                         return eElement.getElementsByTagName("setup").item(0).getTextContent();
                     }
